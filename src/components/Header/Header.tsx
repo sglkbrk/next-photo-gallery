@@ -6,7 +6,7 @@ export default function Header() {
       <div className="flex justify-items-center items-center h-16 md:h-24 sm:h-16">
         <div className="flex-1 justify-items-center align-items-center">
           <Link href="/">
-            <p className="text-gray-300">Burak</p>
+            <p className="text-gray-300">BsGallery</p>
           </Link>
         </div>
         <div className="flex-1 "></div>

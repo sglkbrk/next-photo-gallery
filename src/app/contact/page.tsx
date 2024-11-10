@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 export const metadata: Metadata = {
-  title: 'My Gallery-Contact',
+  title: 'BsGallery-Contact',
   description: 'My Gallery-Contact'
 };
 export default async function Home() {
@@ -21,7 +21,9 @@ export default async function Home() {
         </div>
         <div>
           <p className="text-white text-[14px] font-extralight  tracking-3 w-25">Email</p>
-          <p className="text-white text-[13px] font-extralight  w-25">sglk.brk@gmail.com</p>
+          <a href="mailto:sglk.brk@gmail.com" className="text-white text-[13px] font-extralight  w-25">
+            sglk.brk@gmail.com
+          </a>
         </div>
       </div>
       <div className="grid grid-cols-12 w-full mt-12">

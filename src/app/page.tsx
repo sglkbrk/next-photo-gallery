@@ -1,4 +1,10 @@
 import SlideShow from '../components/Slideshow/SlideShow';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'BsGallery - Home',
+  description: 'My Gallery'
+};
 // import SlideShowInfo from '../components/Slideshow/SlideShowInfo';
 // import SlideShowDetail from '../components/Slideshow/SlideShowDetail';
 // import RecentProjects from '../components/RecentProjects/RecentProjects';

@@ -1,4 +1,10 @@
 import GridFiterImages from '@/components/Grid/GridFiterImages';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'BsGallery - Gallery',
+  description: 'My Gallery'
+};
 
 async function fetchProjects() {
   const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/photo`, {

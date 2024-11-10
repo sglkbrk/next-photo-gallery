@@ -1,4 +1,10 @@
 import { FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'BsGallery - About',
+  description: 'My Gallery'
+};
 export default function Aboutme() {
   return (
     <div className="h-screen w-full ">
@@ -17,24 +23,25 @@ export default function Aboutme() {
                 </div>
                 <div>
                   <p className="text-white text-[14px] font-bold">Title</p>
-                  <p className="text-white text-[13px] ">Photographer</p>
+                  <p className="text-white text-[13px] ">Software developer & Photographer</p>
                 </div>
                 <div>
-                  <p className="text-white text-[14px] font-bold">Type</p>
-                  <p className="text-white text-[13px]">Freelancer</p>
+                  <p className="text-white text-[14px] font-bold">Date</p>
+                  <p className="text-white text-[13px]">02.05.1996</p>
                 </div>
                 <div>
                   <p className="text-white text-[14px] font-bold">Place</p>
                   <p className="text-white text-[13px]">Istanbul</p>
                 </div>
               </div>
-              <p className="text-gray-400 text-[13px]   mt-10 font-extralight tracking-3">
-                VVestibulum tellus risus, pretium et facilisis nec, porta in felis. Nullam fermentum, lorem nec tincidunt tempus, lectus
-                venenatis nisi, quis ultrices tortor arcu id diam. Nunc eros est.
-              </p>
-              <p className="text-gray-400 text-[13px] mt-10 font-extralight tracking-3">
-                VVestibulum tellus risus, pretium et facilisis nec, porta in felis. Nullam fermentum, lorem nec tincidunt tempus, lectus
-                venenatis nisi, quis ultrices tortor arcu id diam. Nunc eros est.
+              <p className="text-gray-400 text-[13px]   mt-10 mr-8 font-extralight tracking-3"></p>
+              <p className="text-gray-400 text-[13px] mt-10 font-extralight mr-8 tracking-3">
+                I graduated as the top of my class from Sivas Cumhuriyet University in 2018 with a degree in Management Information Systems.
+                I started my career in 2016 at Detaysoft as a Web and Mobile Developer. During this time, I gained experience working as a
+                Frontend Developer, Mobile Developer, and SAP Fiori Developer, contributing to both web and mobile projects. I develop
+                dynamic applications using modern technologies such as React.js and Vue.js, while also creating enterprise solutions with
+                SAP Fiori. I continue my professional journey at Detaysoft, aiming to add value to my projects by keeping up with
+                technological advancements.
               </p>
               <div className="flex flex-row items-center  mt-10 mr-8 justify-between">
                 <p className="text-white text-[13px] font-extralight tracking-3">sglk.brk@gmail.com</p>

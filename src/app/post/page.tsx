@@ -1,4 +1,10 @@
 import Grid3Images from '@/components/Grid/Grid3Images';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'BsGallery - Post',
+  description: 'My Gallery'
+};
 
 async function fetchProjects() {
   const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/Projects`, {

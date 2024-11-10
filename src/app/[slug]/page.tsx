@@ -7,8 +7,13 @@ import GalleryGrid from '@/components/Grid/GalleryGrid';
 import GalleryHGrid from '@/components/Grid/GalleryHGrid';
 import { notFound } from 'next/navigation'; // SEO ve 404 durumları için
 import config from '@/config/config';
-type Params = Promise<{ slug: string }>;
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'BsGallery - Project',
+  description: 'My Gallery'
+};
+type Params = Promise<{ slug: string }>;
 interface Photo {
   id: number;
   photo_url: string;
@@ -32,6 +37,8 @@ async function fetchRecentProjects() {
 }
 export default async function ProjectPage(props: { params: Params }) {
   const { slug } = await props.params;
+  metadata.title = 'BsGallery - ' + slug;
+  metadata.description = slug;
   const data = await fetchProjects(slug);
   const himage = data.photos.filter((x: Photo) => x.format == 0);
   const vimage = data.photos.filter((x: Photo) => x.format == 1);
