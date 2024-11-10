@@ -8,8 +8,10 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Tüm dosyaları kopyala ve projeyi üretim moduna derle
+# Tüm dosyaları kopyala
 COPY . .
+
+# Projeyi üretim moduna derle
 RUN npm run build
 
 # Çalıştırma aşaması
