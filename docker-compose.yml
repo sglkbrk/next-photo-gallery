@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: . # Dockerfile'ın bulunduğu dizin
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000' # Yerel makinedeki 3000 portunu container'daki 3000 portuna yönlendirir
+    environment:
+      NODE_ENV: production # Ortam değişkeni olarak üretim modunu ayarla
+    volumes:
+      - .:/app # Proje dosyalarını container içine bağlar
+      - /app/node_modules # node_modules dosyasını bağlar
+    command: ['npm', 'start'] # Uygulamayı başlatmak için npm start çalıştırır
