@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 
@@ -7,10 +7,10 @@ interface SlideshowProps {
   images: string[];
   cols?: number;
 }
-export default function GridImages({ images, cols }: SlideshowProps) {
+export default function GridImages({ images }: SlideshowProps) {
   const [isHovered, setIsHovered] = useState<number>(-1);
   useEffect(() => {
-    let lightbox = new PhotoSwipeLightbox({
+    const lightbox = new PhotoSwipeLightbox({
       gallery: '#scroll',
       children: 'a',
       pswpModule: () => import('photoswipe')
