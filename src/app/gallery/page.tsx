@@ -1,7 +1,7 @@
 import GridFiterImages from '@/components/Grid/GridFiterImages';
 
 async function fetchProjects() {
-  const res = await fetch(`http://localhost:5001/api/photo`, {
+  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/photo`, {
     cache: 'no-store' // SSR için cache'i kapatıyoruz
   });
 

@@ -16,7 +16,7 @@ interface Photo {
   format: number;
 }
 async function fetchProjects(id: string) {
-  const res = await fetch(`http://localhost:5001/api/projects/${id}`, {
+  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/projects/${id}`, {
     cache: 'no-store' // SSR için cache'i kapatıyoruz
   });
   if (!res.ok) notFound();
@@ -24,7 +24,7 @@ async function fetchProjects(id: string) {
 }
 
 async function fetchRecentProjects() {
-  const res = await fetch(`http://localhost:5001/api/projects/recent/4`, {
+  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/projects/recent/4`, {
     cache: 'no-store' // SSR için cache'i kapatıyoruz
   });
   if (!res.ok) notFound();

@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 type Params = Promise<{ slug: string }>;
 
 async function fetchProjects(id: string) {
-  const res = await fetch(`http://localhost:5001/api/Projects/${id}/1`, {
+  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/Projects/${id}/1`, {
     cache: 'no-store' // SSR için cache'i kapatıyoruz
   });
   if (!res.ok) notFound();

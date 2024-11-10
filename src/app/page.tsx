@@ -12,7 +12,7 @@ import SlideShow from '../components/Slideshow/SlideShow';
 // import Grid4Images from '@/components/Grid/Grid4Images';
 
 async function fetchProjects() {
-  const res = await fetch(`http://localhost:5001/api/Projects/home/8`, {
+  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/Projects/home/8`, {
     cache: 'no-store' // SSR için cache'i kapatıyoruz
   });
 

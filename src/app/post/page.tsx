@@ -1,7 +1,7 @@
 import Grid3Images from '@/components/Grid/Grid3Images';
 
 async function fetchProjects() {
-  const res = await fetch(`http://localhost:5001/api/Projects`, {
+  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/Projects`, {
     cache: 'no-store' // SSR için cache'i kapatıyoruz
   });
 
