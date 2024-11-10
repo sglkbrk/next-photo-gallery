@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 interface Photo {
   id: number;
-  photo_url: string;
+  photoUrl: string;
   description: string;
 }
 interface images {

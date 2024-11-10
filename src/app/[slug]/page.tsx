@@ -7,11 +7,7 @@ import GalleryGrid from '@/components/Grid/GalleryGrid';
 import GalleryHGrid from '@/components/Grid/GalleryHGrid';
 import { notFound } from 'next/navigation'; // SEO ve 404 durumları için
 
-interface PostPageProps {
-  params: {
-    slug: string;
-  };
-}
+type Params = Promise<{ slug: string }>;
 
 interface Photo {
   id: number;
@@ -34,8 +30,8 @@ async function fetchRecentProjects() {
   if (!res.ok) notFound();
   return res.json();
 }
-export default async function ProjectPage({ params }: PostPageProps) {
-  const { slug } = await params;
+export default async function ProjectPage(props: { params: Params }) {
+  const { slug } = await props.params;
   const data = await fetchProjects(slug);
   const himage = data.photos.filter((x: Photo) => x.format == 0);
   const vimage = data.photos.filter((x: Photo) => x.format == 1);
