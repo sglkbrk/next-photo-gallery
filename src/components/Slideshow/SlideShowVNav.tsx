@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import config from '@/config/config';
 
 interface Photo {
   photoUrl: string;
@@ -45,7 +46,10 @@ export default function SlideShowVNav({ photo }: FullScreenProps) {
           <FaChevronLeft onClick={() => setImage(imgSy - 1)} className="text-white text-3xl" />
         </div>
         <a className="h-full justify-start justify-center items-center">
-          <img src={photo.photos[imgSy].photoUrl} className="object-cover  object-center  w-full  md:w-[calc(100%-20px)]  h-screen" />
+          <img
+            src={config.apiEndpoints.downloadFile + photo.photos[imgSy].photoUrl}
+            className="object-cover  object-center  w-full  md:w-[calc(100%-20px)]  h-screen"
+          />
         </a>
         <div className="flex flex-col md:hidden  mt-32">
           <FaChevronRight onClick={() => setImage(imgSy + 1)} className="text-white text-3xl" />
@@ -57,7 +61,10 @@ export default function SlideShowVNav({ photo }: FullScreenProps) {
               onClick={() => setImage(index)}
               className="flex w-56 h-16 hower:w-56 hover:h-16  items-center justify-end hower:justify-between  z-30 group "
             >
-              <img src={image.photoUrl} className="flex w-32 h-full object-cover object-center hidden group-hover:flex" />
+              <img
+                src={config.apiEndpoints.downloadFile + image.photoUrl}
+                className="flex w-32 h-full object-cover object-center hidden group-hover:flex"
+              />
               <div className="w-0 h-0.5 bg-white my-4 group-hover:w-16 transition-all duration-500 ease-out"></div>
               <span className="w-2 h-2 bg-gray-500  group-hover:bg-white  hover:w-3 hover:h-3 rounded-full"></span>
             </div>

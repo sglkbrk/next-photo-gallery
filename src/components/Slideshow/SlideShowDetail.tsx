@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+import config from '@/config/config';
 
 interface Photo {
   id: number;
@@ -54,7 +55,7 @@ export default function SlideShowDetail({ images }: { images: images }) {
             <img
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}
-              src={image.photoUrl}
+              src={config.apiEndpoints.downloadFile + image.photoUrl}
               className={`object-cover h-full  rounded-lg z-0 ${index !== isHovered && isHovered != -1 ? 'opacity-60' : ''}`}
               alt="image"
             />

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
+import config from '@/config/config';
 
 interface Photo {
   photoUrl: string;
@@ -68,7 +69,7 @@ export default function SlideShowInfo({ photo }: SlideshowProps) {
         </div>
         {photo.photos.map((image, index) => (
           <a
-            href={image.photoUrl}
+            href={config.apiEndpoints.downloadFile + image.photoUrl}
             key={index}
             className="w-screen sm:w-auto  sm:min-w-max h-full flex items-center justify-center  "
             data-pswp-width={image.width ? image.width : 1875}
@@ -77,7 +78,7 @@ export default function SlideShowInfo({ photo }: SlideshowProps) {
             <img
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}
-              src={image.photoUrl}
+              src={config.apiEndpoints.downloadFile + image.photoUrl}
               className={`object-cover h-full  rounded-lg ${index !== isHovered && isHovered != -1 ? 'opacity-60' : ''}`}
               alt="image"
             />

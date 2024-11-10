@@ -6,7 +6,7 @@ import ProjectsNavigation from '@/components/ProjectsNavigation/ProjectsNavigati
 import GalleryGrid from '@/components/Grid/GalleryGrid';
 import GalleryHGrid from '@/components/Grid/GalleryHGrid';
 import { notFound } from 'next/navigation'; // SEO ve 404 durumları için
-
+import config from '@/config/config';
 type Params = Promise<{ slug: string }>;
 
 interface Photo {
@@ -42,7 +42,7 @@ export default async function ProjectPage(props: { params: Params }) {
   }
   return (
     <div>
-      <BannerFullScreen image={himage[0].photoUrl} title={data.title} ctiy={data.city} />
+      <BannerFullScreen image={config.apiEndpoints.downloadFile + himage[0].photoUrl} title={data.title} ctiy={data.city} />
       <div className="ml-4 mr-4 xl:ml-64 xl:mr-64">
         <p className="text-gray-400 text-[15px] font-effra">{cc[0]}</p>
         <Showdeteil photo={himage[1]} />

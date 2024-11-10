@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+import config from '@/config/config';
 
 interface SlideshowProps {
   projects: {
@@ -37,7 +38,7 @@ export default function RecentProjects({ projects }: SlideshowProps) {
             className="relative w-full h-96 md:h-64 lg:h-72 flex items-end justify-center "
           >
             <img
-              src={project.mainImageUrl}
+              src={config.apiEndpoints.downloadFile + project.mainImageUrl}
               className={`object-cover z-0 object-center w-full h-full ${index !== isHovered && isHovered != -1 ? 'opacity-30' : ''}`}
             />
             <div className="z-10 absolute bg-black p-4 h-8 mb-4 flex flex-col items-center justify-center">

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import Filters from '@/components/Filters/Filters';
+import config from '@/config/config';
 
 interface SlideshowProps {
   projects: {
@@ -50,12 +51,15 @@ export default function GridFiterImages({ projects }: SlideshowProps) {
             className={`relative w-fullitems-end justify-center ${index !== isHovered && isHovered != -1 ? 'opacity-70' : ''}`}
           >
             <a
-              href={image.photoUrl}
+              href={config.apiEndpoints.downloadFile + image.photoUrl}
               data-pswp-width={image.width}
               data-pswp-height={image.height}
               className="pswp-gallery__item  flex flex-col items-center justify-center h-[351px]"
             >
-              <img src={image.photoUrl} className="object-cover object-center w-full h-full rounded-lg" />
+              <img
+                src={config.apiEndpoints.downloadFile + image.photoUrl}
+                className="object-cover object-center w-full h-full rounded-lg"
+              />
               <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-2  mb-4 opacity-70  hover:opacity-100 space-y-4">
                 <div className="text-white text-[11px] font-effra uppercase tracking-6">{image.city}</div>
               </div>

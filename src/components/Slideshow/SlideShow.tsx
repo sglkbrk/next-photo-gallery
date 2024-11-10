@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import config from '@/config/config';
 
 interface SlideshowProps {
   images: {
@@ -20,6 +21,7 @@ interface SlideshowProps {
     createdAt: string; // ISO date string
   }[];
 }
+const asd = process.env.NEXT_PUBLIC_SITE_URL + '/api/MinioFile/download/';
 export default function SlideShow({ images }: SlideshowProps) {
   const [showHint, setShowHint] = useState(true);
   const [isHovered, setIsHovered] = useState<number>(-1);
@@ -62,7 +64,7 @@ export default function SlideShow({ images }: SlideshowProps) {
             <img
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}
-              src={image.mainImageUrl}
+              src={config.apiEndpoints.downloadFile + image.mainImageUrl}
               className={`object-cover h-full  p-3 sm:p-0 rounded-lg z-0 ${index !== isHovered && isHovered != -1 ? 'opacity-50' : ''}`}
               alt="image"
             />
