@@ -21,7 +21,7 @@ interface SlideshowProps {
     createdAt: string; // ISO date string
   }[];
 }
-const asd = process.env.NEXT_PUBLIC_SITE_URL + '/api/MinioFile/download/';
+
 export default function SlideShow({ images }: SlideshowProps) {
   const [showHint, setShowHint] = useState(true);
   const [isHovered, setIsHovered] = useState<number>(-1);
