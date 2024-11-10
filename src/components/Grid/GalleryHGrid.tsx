@@ -53,7 +53,7 @@ export default function GalleryGrid({ photos, slug }: GalleryGridProps) {
             >
               <img
                 src={config.apiEndpoints.downloadFile + image.photoUrl}
-                className={`object-coverobject-center w-full h-full ${index !== isHovered && isHovered != -1 ? 'opacity-70' : ''}`}
+                className={`object-cover object-center w-full h-full ${index !== isHovered && isHovered != -1 ? 'opacity-70' : ''}`}
               />
             </a>
             <div className="z-10 absolute bg-black  h-8 mb-4  p-4 flex flex-col items-center justify-center">
