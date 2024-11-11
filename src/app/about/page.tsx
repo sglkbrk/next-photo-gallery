@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 export default function Aboutme() {
   return (
-    <div className="h-screen overflow-hidden w-full ">
+    <div className="h-screen overflow-y-auto md:overflow-hidden w-full ">
       <div id="scroll" className="relative w-full  overflow-hidden   h-full flex items-center justify-center  mb-8 mt-8 ">
         <img
           src="https://gallery.buraksaglik.com/api/MinioFile/download/588fc047-34ca-458c-9f8b-bf8839227162.jpeg"

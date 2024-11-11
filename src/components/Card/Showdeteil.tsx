@@ -35,7 +35,7 @@ export default function Showdeteil({ photo }: SlideshowProps) {
   return (
     <div className="flex overflow-x-auto scroll-smooth mt-8 mb-8">
       <div className="grid grid-cols-1  md:grid-cols-12 sm:space-x-8">
-        <div className="flex    md:col-span-2 flex-col justify-center items-center md:items-start   min-w-[100px]  h-full    space-y-4">
+        <div className="flex    md:col-span-2 flex-col justify-start items-start   min-w-[100px]  h-full    space-y-4">
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Title</p>
             <p className="text-gray-500 text-[14px]">{photo.title}</p>

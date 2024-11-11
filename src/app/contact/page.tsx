@@ -52,7 +52,7 @@ export default function Home() {
       <p className="text-white text-[13px] mt-12 font-extralight">
         Feel free to get in touch! You can use the contact information below for any questions, suggestions, or collaboration opportunities.
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full gap-4 mt-12 justify-items-center items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full gap-4 mt-12 justify-items-start md:justify-items-center items-center">
         <div>
           <p className="text-white text-[14px] font-extralight tracking-3 w-25">Telefon</p>
           <p className="text-white text-[13px] font-extralight w-25">---</p>

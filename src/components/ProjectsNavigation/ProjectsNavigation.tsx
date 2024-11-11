@@ -5,13 +5,13 @@ export default function ProjectsNavigation() {
     // TODO: hover olmanyanlar için opacity eklenecek
     <div className="flex flex-row  justify-center mb-8 mt-8  space-x-8  sm:space-x-32">
       <Link className="text-white text-[12px] font-effra uppercase tracking-6" href="/projects">
-        Geri
+        Back
       </Link>
       <Link className="text-white text-[12px] font-effra uppercase tracking-6" href="/">
         Home
       </Link>
       <Link className="text-white text-[12px] font-effra uppercase tracking-6" href="/projects">
-        ileri
+        Next
       </Link>
     </div>
   );

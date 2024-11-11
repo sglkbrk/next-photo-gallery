@@ -1,5 +1,6 @@
+'use client';
 import Link from 'next/link';
-import { FaBars } from 'react-icons/fa';
+import DropdownMenu from './SidePanel';
 export default function Header() {
   return (
     <header className="md:pl-0  pl-10">
@@ -39,9 +40,9 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        <div className="flex-2 md:pl-0  pr-16  text-gray-300 block md:hidden">
+        <div className="flex-2 md:pl-0  pr-10   text-gray-300 block md:hidden">
           {' '}
-          <FaBars />
+          <DropdownMenu></DropdownMenu>
         </div>
       </div>
     </header>
