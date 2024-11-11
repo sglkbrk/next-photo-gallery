@@ -24,6 +24,12 @@ const nextConfig: NextConfig = {
         pathname: '/**'
       },
       {
+        protocol: 'https',
+        hostname: 'gallery.buraksaglik.com',
+        port: '',
+        pathname: '/**'
+      },
+      {
         protocol: 'http',
         hostname: 'localhost:5001',
         port: '',
