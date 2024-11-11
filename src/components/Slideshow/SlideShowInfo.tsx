@@ -29,6 +29,7 @@ interface SlideshowProps {
   };
 }
 export default function SlideShowInfo({ photo }: SlideshowProps) {
+  const [showHint, setShowHint] = useState(true);
   const [isHovered, setIsHovered] = useState<number>(-1);
   useEffect(() => {
     const lightbox = new PhotoSwipeLightbox({
@@ -42,8 +43,21 @@ export default function SlideShowInfo({ photo }: SlideshowProps) {
       lightbox.destroy();
     };
   }, []);
+  useEffect(() => {
+    // Belirli bir süre sonra kaydırma göstergesini kaldır
+    const timer = setTimeout(() => {
+      setShowHint(false);
+    }, 3000); // 3 saniye sonra kaybolacak
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div className="flex   overflow-x-auto  scroll-smooth">
+      {showHint && (
+        <div className="absolute top-1/2 z-10  left-4 transform -translate-y-1/2 animate-bounce text-gray-300 font-semibold">
+          <span className="mr-2">→</span> Swipe right
+        </div>
+      )}
       <div id="scroll" className="flex sm:space-x-8">
         <div className="flex flex-col justify-center items-end p-12 min-w-[350px] h-full  hidden sm:flex  space-y-8">
           <div className="flex flex-col min-w-[100px] space-y-1">

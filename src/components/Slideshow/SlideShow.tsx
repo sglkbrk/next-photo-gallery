@@ -47,7 +47,7 @@ export default function SlideShow({ images }: SlideshowProps) {
       <div id="scroll" className="flex sm:space-x-8">
         {showHint && (
           <div className="absolute top-1/2 z-10  left-4 transform -translate-y-1/2 animate-bounce text-gray-300 font-semibold">
-            <span className="mr-2">→</span> Kaydır
+            <span className="mr-2">→</span> Swipe right
           </div>
         )}
         <div className="min-w-[550px] h-full flex items-center justify-center hidden sm:block "></div>
