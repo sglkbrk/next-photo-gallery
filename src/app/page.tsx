@@ -3,19 +3,9 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'BsGallery - Home',
-  description: 'My Gallery'
+  description:
+    'Discover high-resolution photographs and in-depth articles from around the world | Dünyanın dört bir yanından yüksek çözünürlüklü fotoğraflar ve detaylı makaleler keşfedin.'
 };
-// import SlideShowInfo from '../components/Slideshow/SlideShowInfo';
-// import SlideShowDetail from '../components/Slideshow/SlideShowDetail';
-// import RecentProjects from '../components/RecentProjects/RecentProjects';
-// import BannerFullScreen from '../components/Banner/BannerFullScreen';
-// import Showdeteil from '../components/Card/Showdeteil';
-// import FullScreen from '@/components/Card/FullScreen';
-// import ProjectsNavigation from '@/components/ProjectsNavigation/ProjectsNavigation';
-// import SlideShowVNav from '@/components/Slideshow/SlideShowVNav';
-// import Grid2Images from '@/components/Grid/Grid2Images';
-// import Grid3Images from '@/components/Grid/Grid3Images';
-// import Grid4Images from '@/components/Grid/Grid4Images';
 
 async function fetchProjects() {
   const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/Projects/home/8`, {

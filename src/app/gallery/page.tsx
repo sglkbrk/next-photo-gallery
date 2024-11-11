@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'BsGallery - Gallery',
-  description: 'My Gallery'
+  description:
+    'Discover high-resolution photographs and in-depth articles from around the world | Dünyanın dört bir yanından yüksek çözünürlüklü fotoğraflar ve detaylı makaleler keşfedin.'
 };
 
 async function fetchProjects() {

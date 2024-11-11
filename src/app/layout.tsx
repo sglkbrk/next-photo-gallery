@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
+import Head from 'next/head';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -26,12 +27,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}  bg-black min-h-screen w-full h-full md:pl-12 md:pr-12`}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <>
+      <Head>
+        <meta property="og:title" content="BsGallery" />
+        <meta
+          property="og:description"
+          content="Discover high-resolution photographs and in-depth articles from around the world | Dünyanın dört bir yanından yüksek çözünürlüklü fotoğraflar ve detaylı makaleler keşfedin."
+        />
+        <meta property="og:image" content="https://www.example.com/image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable}  bg-black min-h-screen w-full h-full md:pl-12 md:pr-12`}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </>
   );
 }

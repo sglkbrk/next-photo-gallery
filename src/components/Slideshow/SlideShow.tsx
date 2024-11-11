@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import config from '@/config/config';
+import Image from 'next/image';
 
 interface SlideshowProps {
   images: {
@@ -61,12 +62,22 @@ export default function SlideShow({ images }: SlideshowProps) {
         ))} */}
         {images.map((image, index) => (
           <div key={index} className="relative  w-screen sm:w-auto  sm:min-w-max h-full flex items-center justify-center">
-            <img
+            {/* <img
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}
               src={config.apiEndpoints.downloadFile + image.mainImageUrl}
               className={`object-cover h-full  p-3 sm:p-0 rounded-lg z-0 ${index !== isHovered && isHovered != -1 ? 'opacity-50' : ''}`}
-              alt="image"
+              alt={image.title}
+            /> */}
+            <Image
+              onMouseEnter={() => setIsHovered(index)}
+              onMouseLeave={() => setIsHovered(-1)}
+              src={config.apiEndpoints.downloadFile + image.mainImageUrl}
+              alt={image.title}
+              layout="intrinsic" // veya layout="responsive" ya da layout="fill" ihtiyaca göre
+              width={500} // Genişlik, burada orijinal resmin boyutlarına göre ayar yapmalısınız
+              height={300} // Yükseklik, orijinal resme uygun olacak şekilde ayar yapmalısınız
+              className="object-cover h-full p-3 sm:p-0"
             />
             <div
               onMouseEnter={() => setIsHovered(index)}

@@ -45,10 +45,10 @@ export default function SlideShowVNav({ photo }: FullScreenProps) {
         <div className="flex flex-col md:hidden  mt-32">
           <FaChevronLeft onClick={() => setImage(imgSy - 1)} className="text-white text-3xl" />
         </div>
-        <a className="h-full justify-start justify-center items-center">
+        <a className="h-full w-screen justify-start justify-center items-center">
           <img
             src={config.apiEndpoints.downloadFile + photo.photos[imgSy].photoUrl}
-            className="object-cover  object-center  w-full  md:w-[calc(100%-20px)]  h-screen"
+            className="object-cover  object-center  w-full w-screen md:pr-8 h-screen"
           />
         </a>
         <div className="flex flex-col md:hidden  mt-32">

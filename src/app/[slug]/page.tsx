@@ -7,12 +7,8 @@ import GalleryGrid from '@/components/Grid/GalleryGrid';
 import GalleryHGrid from '@/components/Grid/GalleryHGrid';
 import { notFound } from 'next/navigation'; // SEO ve 404 durumları için
 import config from '@/config/config';
-import type { Metadata } from 'next';
+import Head from 'next/head';
 
-export const metadata: Metadata = {
-  title: 'BsGallery - Project',
-  description: 'My Gallery'
-};
 type Params = Promise<{ slug: string }>;
 interface Photo {
   id: number;
@@ -37,8 +33,8 @@ async function fetchRecentProjects() {
 }
 export default async function ProjectPage(props: { params: Params }) {
   const { slug } = await props.params;
-  metadata.title = 'BsGallery - ' + slug;
-  metadata.description = slug;
+  // metadata.title = 'BsGallery - ' + slug;
+  // metadata.description = slug;
   const data = await fetchProjects(slug);
   const himage = data.photos.filter((x: Photo) => x.format == 0);
   const vimage = data.photos.filter((x: Photo) => x.format == 1);
@@ -49,6 +45,11 @@ export default async function ProjectPage(props: { params: Params }) {
   }
   return (
     <div>
+      <Head>
+        <title>BsGallery - {slug}</title>
+        <meta name="description" content={cc[0]} />
+      </Head>
+
       <BannerFullScreen image={config.apiEndpoints.downloadFile + himage[0].photoUrl} title={data.title} ctiy={data.city} />
       <div className="ml-4 mr-4 xl:ml-64 xl:mr-64">
         <p className="text-gray-400 text-[15px] font-effra">{cc[0]}</p>
