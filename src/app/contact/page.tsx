@@ -23,7 +23,6 @@ export default function Home() {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ContantMe', {
         method: 'POST',
-        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },

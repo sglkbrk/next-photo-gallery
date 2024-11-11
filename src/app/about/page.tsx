@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 };
 export default function Aboutme() {
   return (
-    <div className="h-screen w-full ">
+    <div className="h-screen overflow-hidden w-full ">
       <div id="scroll" className="relative w-full  overflow-hidden   h-full flex items-center justify-center  mb-8 mt-8 ">
         <img
-          src="https://www.codesymbol.com/templates/uno/demo/dark/images/f14.jpg"
+          src="https://gallery.buraksaglik.com/api/MinioFile/download/588fc047-34ca-458c-9f8b-bf8839227162.jpeg"
           className="object-cover  object-center w-full h-full blur-sm"
         />
         <div className="items-center justify-center absolute z-10  bg-black p-8  left-2 right-2 md:left-8 md:right-8  space-y-4  ">
