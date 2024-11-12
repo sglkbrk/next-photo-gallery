@@ -9,13 +9,13 @@ export default function ProjectsNavigation({ slugs, slug }: Props) {
   return (
     // TODO: hover olmanyanlar için opacity eklenecek
     <div className="flex flex-row  justify-center mb-8 mt-8  space-x-8  sm:space-x-32">
-      <Link className="text-white text-[12px] font-effra uppercase tracking-6" href={slugs[inx - 1]}>
+      <Link className="text-white text-[12px] font-effra uppercase tracking-6" href={slugs[inx == 0 ? slugs.length - 1 : inx - 1]}>
         Back
       </Link>
       <Link className="text-white text-[12px] font-effra uppercase tracking-6" href="/">
         Home
       </Link>
-      <Link className="text-white text-[12px] font-effra uppercase tracking-6" href={slugs[inx + 1]}>
+      <Link className="text-white text-[12px] font-effra uppercase tracking-6" href={slugs[inx == slugs.length - 1 ? 0 : inx + 1]}>
         Next
       </Link>
     </div>
