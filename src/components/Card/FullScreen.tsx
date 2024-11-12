@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import config from '@/config/config';
+import Image from 'next/image';
 
 interface FullScreenProps {
   photo: {
@@ -41,7 +42,15 @@ export default function FullScreen({ photo }: FullScreenProps) {
         data-pswp-height={photo.height}
         className="pswp-gallery__item h-full justify-center items-center"
       >
-        <img src={config.apiEndpoints.downloadFile + photo.photoUrl} className="object-cover  object-center w-full h-full" />
+        <div className="w-full h-full">
+          <Image
+            width={photo.width}
+            height={photo.height}
+            alt={photo.title}
+            src={config.apiEndpoints.downloadFile + photo.photoUrl}
+            className="object-cover  object-center"
+          />
+        </div>
       </a>
       <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-2  mb-4 opacity-90 space-y-4">
         <div className="text-white text-[11px] font-effra uppercase tracking-6">{photo.title}</div>

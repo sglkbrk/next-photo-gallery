@@ -51,24 +51,8 @@ export default function SlideShow({ images }: SlideshowProps) {
           </div>
         )}
         <div className="min-w-[550px] h-full flex items-center justify-center hidden sm:block "></div>
-        {/* {images.map((image, index) => (
-          <div key={index} className="w-screen sm:w-auto  sm:min-w-max h-full flex items-center justify-center ">
-            <img
-              src={image}
-              className="object-cover h-full  opacity-50 hover:opacity-100 rounded-lg transition-transform duration-500 translate3d(50px, 100px, 0) "
-              alt="image"
-            />
-          </div>
-        ))} */}
         {images.map((image, index) => (
           <div key={index} className="relative  w-screen sm:w-auto  sm:min-w-max h-full flex items-center justify-center">
-            {/* <img
-              onMouseEnter={() => setIsHovered(index)}
-              onMouseLeave={() => setIsHovered(-1)}
-              src={config.apiEndpoints.downloadFile + image.mainImageUrl}
-              className={`object-cover h-full  p-3 sm:p-0 rounded-lg z-0 ${index !== isHovered && isHovered != -1 ? 'opacity-50' : ''}`}
-              alt={image.title}
-            /> */}
             <Image
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}

@@ -9,9 +9,12 @@ export const metadata: Metadata = {
 };
 export default function Aboutme() {
   return (
-    <div className="h-screen  overflow-y-auto  ">
+    <div className="h-screen  overflow-y-auto md:overflow-hidden  ">
       <div id="scroll" className="relative w-full    h-full flex items-center justify-center  mb-8 mt-24 ">
-        <img
+        <Image
+          width={1000}
+          height={1000}
+          alt=""
           src="https://gallery.buraksaglik.com/api/MinioFile/download/588fc047-34ca-458c-9f8b-bf8839227162.jpeg"
           className="object-cover  object-center w-full h-full blur-sm"
         />
@@ -74,7 +77,6 @@ export default function Aboutme() {
             </div>
             <div className=" md:col-span-2  h-full flex flex-1 justify-center items-center">
               <div className="md:col-span-2 mt-2 md:mt-0 justify-items-end w-full h-96 md:h-60 relative">
-                {/* <img src="https://buraksaglik.com/assets/images/banner/IMG_0419.jpeg" className="object-cover  object-center w-full h-full" /> */}
                 <Image
                   src="https://buraksaglik.com/assets/images/banner/IMG_0419.jpeg"
                   layout="fill"

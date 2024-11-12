@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import config from '@/config/config';
+import Image from 'next/image';
 
 interface Photo {
   id: number;
@@ -51,7 +52,9 @@ export default function GalleryGrid({ photos, slug }: GalleryGridProps) {
               data-pswp-height={image.height}
               className="pswp-gallery__item  z-0  w-full h-full "
             >
-              <img
+              <Image
+                fill
+                alt={image.title}
                 src={config.apiEndpoints.downloadFile + image.photoUrl}
                 className={`object-cover object-center w-full h-full ${index !== isHovered && isHovered != -1 ? 'opacity-70' : ''}`}
               />

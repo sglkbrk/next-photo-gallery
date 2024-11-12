@@ -63,10 +63,6 @@ export default function GridFiterImages({ projects }: SlideshowProps) {
                 className="object-cover object-center w-full h-full rounded-lg"
                 alt={image.description}
               />
-              {/* <img
-                src={config.apiEndpoints.downloadFile + image.photoUrl}
-                alt={image.description}
-              /> */}
               <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-2  mb-4 opacity-70  hover:opacity-100 space-y-4">
                 <div className="text-white text-[11px] font-effra uppercase tracking-6">{image.city}</div>
               </div>

@@ -68,7 +68,7 @@ export default function Home() {
           </a>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="grid grid-cols-12 w-full mt-12">
+      <form onSubmit={handleSubmit} className="grid grid-cols-12 w-full mt-12 gap-4">
         <div className="flex flex-col justify-center items-center space-y-4 w-full col-span-12 sm:col-span-7">
           <input
             name="name"
@@ -100,11 +100,20 @@ export default function Home() {
             className="w-full p-3 bg-black border border-gray-500 placeholder:text-gray placeholder:font-extralight placeholder:text-[14px] placeholder:uppercase text-white"
             placeholder="Message"
           />
+          <div className="w-full"></div>
           <div className="w-full">
             <button type="submit" className="text-black text-[14px] bg-white uppercase border border-white p-2 tracking-3 rounded-sm">
               Submit
             </button>
           </div>
+        </div>
+        <div className="hidden sm:block sm:col-span-5">
+          <iframe
+            className="w-full h-full"
+            id="gmap_canvas"
+            src="https://maps.google.com/maps?q=Mission%20District%2C%20Sivas%2C%20CA%2C%20Turkey&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            scrolling="no"
+          ></iframe>
         </div>
       </form>
     </div>
