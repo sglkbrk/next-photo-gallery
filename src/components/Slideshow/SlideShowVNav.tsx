@@ -3,9 +3,13 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import config from '@/config/config';
+import Image from 'next/image';
 
 interface Photo {
   photoUrl: string;
+  title: string;
+  width: number;
+  height: number;
 }
 interface FullScreenProps {
   photo: {
@@ -46,7 +50,10 @@ export default function SlideShowVNav({ photo }: FullScreenProps) {
           <FaChevronLeft onClick={() => setImage(imgSy - 1)} className="text-white text-3xl" />
         </div>
         <a className="h-full w-screen justify-start justify-center items-center">
-          <img
+          <Image
+            width={photo.photos[imgSy].width}
+            height={photo.photos[imgSy].height}
+            alt={photo.photos[imgSy].title}
             src={config.apiEndpoints.downloadFile + photo.photos[imgSy].photoUrl}
             className="object-cover  object-center  w-full w-screen md:pr-8 h-screen"
           />
@@ -61,7 +68,10 @@ export default function SlideShowVNav({ photo }: FullScreenProps) {
               onClick={() => setImage(index)}
               className="flex w-56 h-16 hower:w-56 hover:h-16  items-center justify-end hower:justify-between  z-30 group "
             >
-              <img
+              <Image
+                width={100}
+                height={100}
+                alt={image.title}
                 src={config.apiEndpoints.downloadFile + image.photoUrl}
                 className="flex w-32 h-full object-cover object-center hidden group-hover:flex"
               />

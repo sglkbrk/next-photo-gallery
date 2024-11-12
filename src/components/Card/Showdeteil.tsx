@@ -1,5 +1,6 @@
 'use client';
 import { useEffect } from 'react';
+import Image from 'next/image';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import config from '@/config/config';
@@ -68,7 +69,13 @@ export default function Showdeteil({ photo }: SlideshowProps) {
             data-pswp-height={photo.height}
             className="pswp-gallery__item justify-center items-center"
           >
-            <img src={config.apiEndpoints.downloadFile + photo.photoUrl} className="object-cover z-0 object-center w-full h-full" />
+            <Image
+              width={photo.width}
+              height={photo.height}
+              alt={photo.title}
+              src={config.apiEndpoints.downloadFile + photo.photoUrl}
+              className="object-cover z-0 object-center w-full h-full"
+            />
           </a>
           <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-4 h-8 mb-4 opacity-90 space-y-4">
             <div className="text-white text-[11px] font-effra uppercase tracking-6">{photo.title}</div>
