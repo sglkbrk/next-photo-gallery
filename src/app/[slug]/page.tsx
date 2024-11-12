@@ -31,6 +31,14 @@ async function fetchRecentProjects() {
   if (!res.ok) notFound();
   return res.json();
 }
+
+async function fetchSlugs() {
+  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/projects/slugs`, {
+    cache: 'no-store' // SSR için cache'i kapatıyoruz
+  });
+  if (!res.ok) notFound();
+  return res.json();
+}
 export default async function ProjectPage(props: { params: Params }) {
   const { slug } = await props.params;
   // metadata.title = 'BsGallery - ' + slug;
@@ -39,6 +47,7 @@ export default async function ProjectPage(props: { params: Params }) {
   const himage = data.photos.filter((x: Photo) => x.format == 0);
   const vimage = data.photos.filter((x: Photo) => x.format == 1);
   const recentProject = await fetchRecentProjects();
+  const slugs = await fetchSlugs();
   const cc = data.description.split('&');
   if (!data || himage.length < 3) {
     notFound();
@@ -60,7 +69,7 @@ export default async function ProjectPage(props: { params: Params }) {
         <GalleryHGrid photos={himage.slice(3, himage.length)} slug={'/photosh/' + slug} />
         <GalleryGrid photos={vimage} slug={'/photos/' + slug} />
       </div>
-      <ProjectsNavigation />
+      <ProjectsNavigation slugs={slugs} slug={slug} />
       <RecentProjects projects={recentProject} />
     </div>
   );
