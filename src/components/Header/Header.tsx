@@ -1,13 +1,15 @@
 'use client';
 import Link from 'next/link';
 import DropdownMenu from './SidePanel';
+import Image from 'next/image';
 export default function Header() {
   return (
     <header className="md:pl-0  pl-10">
       <div className="flex justify-items-center items-center h-16 md:h-24 sm:h-16">
         <div className="flex-1 justify-items-center align-items-center">
           <Link href="/">
-            <p className="text-gray-300">BsGallery</p>
+            {/* <p className="text-gray-300">BsGallery</p> */}
+            <Image src="/logo.png" alt="Logo" width={120} height={60} />
           </Link>
         </div>
         <div className="flex-1 "></div>

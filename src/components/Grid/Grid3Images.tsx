@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import config from '@/config/config';
+import Image from 'next/image';
 
 interface SlideshowProps {
   projects: {
@@ -23,11 +24,17 @@ export default function GridImages({ projects }: SlideshowProps) {
             onMouseLeave={() => setIsHovered(-1)}
             className={`relative w-fullitems-end justify-center ${index !== isHovered && isHovered != -1 ? 'opacity-70' : ''}`}
           >
-            <div className="flex flex-col items-center justify-center h-[351px]">
-              <img
+            <div className="relative flex flex-col items-center justify-center h-[351px]">
+              <Image
+                fill
                 src={config.apiEndpoints.downloadFile + image.mainImageUrl}
                 className="object-cover object-center w-full h-full rounded-lg"
+                alt={image.mainImageUrl}
               />
+              {/* <img
+                src={config.apiEndpoints.downloadFile + image.mainImageUrl}
+                className="object-cover object-center w-full h-full rounded-lg"
+              /> */}
               <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-2  mb-4 opacity-70  hover:opacity-100 space-y-4">
                 <Link href={'/' + image.slug} className="text-white text-[11px] font-effra uppercase tracking-6">
                   {image.city}

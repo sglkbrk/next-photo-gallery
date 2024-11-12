@@ -4,6 +4,7 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import Filters from '@/components/Filters/Filters';
 import config from '@/config/config';
+import Image from 'next/image';
 
 interface SlideshowProps {
   projects: {
@@ -54,12 +55,18 @@ export default function GridFiterImages({ projects }: SlideshowProps) {
               href={config.apiEndpoints.downloadFile + image.photoUrl}
               data-pswp-width={image.width}
               data-pswp-height={image.height}
-              className="pswp-gallery__item  flex flex-col items-center justify-center h-[351px]"
+              className="relative pswp-gallery__item  flex flex-col items-center justify-center h-[351px]"
             >
-              <img
+              <Image
+                fill
                 src={config.apiEndpoints.downloadFile + image.photoUrl}
                 className="object-cover object-center w-full h-full rounded-lg"
+                alt={image.description}
               />
+              {/* <img
+                src={config.apiEndpoints.downloadFile + image.photoUrl}
+                alt={image.description}
+              /> */}
               <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-2  mb-4 opacity-70  hover:opacity-100 space-y-4">
                 <div className="text-white text-[11px] font-effra uppercase tracking-6">{image.city}</div>
               </div>
