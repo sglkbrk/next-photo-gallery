@@ -47,7 +47,7 @@ export default function GalleryGrid({ photos, slug }: GalleryGridProps) {
             className="relative w-full h-96 md:h-64 xxl:h-96 flex items-end justify-center "
           >
             <a
-              href={config.apiEndpoints.downloadFile + image.photoUrl}
+              href={config.apiEndpoints.imageUrl + image.photoUrl}
               data-pswp-width={image.width}
               data-pswp-height={image.height}
               className="pswp-gallery__item  z-0  w-full h-full "

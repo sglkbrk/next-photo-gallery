@@ -64,7 +64,7 @@ export default function Showdeteil({ photo }: SlideshowProps) {
           className="relative md:col-span-10 w-full  max-h-[500px] flex items-end justify-center md:p-8 mt-8 md:mt-0 "
         >
           <a
-            href={config.apiEndpoints.downloadFile + photo.photoUrl}
+            href={config.apiEndpoints.imageUrl + photo.photoUrl}
             data-pswp-width={photo.width}
             data-pswp-height={photo.height}
             className="pswp-gallery__item justify-center items-center"

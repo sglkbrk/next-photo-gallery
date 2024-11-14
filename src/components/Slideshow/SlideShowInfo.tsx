@@ -96,7 +96,7 @@ export default function SlideShowInfo({ photo }: SlideshowProps) {
             className="relative h-full  w-full w-screen sm:w-[80vw] md:w-[45vw] lg:w-[35vw] xl:w-[25vw]  flex items-end justify-center"
           >
             <a
-              href={config.apiEndpoints.downloadFile + image.photoUrl}
+              href={config.apiEndpoints.imageUrl + image.photoUrl}
               data-pswp-height={image.height ? image.height : 2500}
               data-pswp-width={image.width ? image.width : 1875}
             >

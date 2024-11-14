@@ -52,7 +52,7 @@ export default function GridFiterImages({ projects }: SlideshowProps) {
             className={`relative w-fullitems-end justify-center ${index !== isHovered && isHovered != -1 ? 'opacity-70' : ''}`}
           >
             <a
-              href={config.apiEndpoints.downloadFile + image.photoUrl}
+              href={config.apiEndpoints.imageUrl + image.photoUrl}
               data-pswp-width={image.width}
               data-pswp-height={image.height}
               className="relative pswp-gallery__item  flex flex-col items-center justify-center h-[351px]"
