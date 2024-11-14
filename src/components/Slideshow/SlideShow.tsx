@@ -52,15 +52,17 @@ export default function SlideShow({ images }: SlideshowProps) {
         )}
         <div className="min-w-[550px] h-full flex items-center justify-center hidden sm:block "></div>
         {images.map((image, index) => (
-          <div key={index} className="relative  w-screen sm:w-auto  sm:min-w-max h-full flex items-center justify-center">
+          <div
+            key={index}
+            className="relative h-full  w-full w-screen sm:w-[80vw] md:w-[45vw] lg:w-[35vw] xl:w-[25vw]  flex items-center justify-center"
+          >
             <Image
+              fill
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}
               src={config.apiEndpoints.downloadFile + image.mainImageUrl}
               alt={image.title}
-              layout="intrinsic" // veya layout="responsive" ya da layout="fill" ihtiyaca göre
-              width={500} // Genişlik, burada orijinal resmin boyutlarına göre ayar yapmalısınız
-              height={300} // Yükseklik, orijinal resme uygun olacak şekilde ayar yapmalısınız
+              objectFit="cover"
               className="object-cover h-full p-3 sm:p-0"
             />
             <div
