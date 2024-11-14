@@ -18,7 +18,7 @@ export default function Aboutme() {
           src="https://gallery.buraksaglik.com/api/MinioFile/download/588fc047-34ca-458c-9f8b-bf8839227162.jpeg"
           className="object-cover  object-center w-full h-full blur-sm"
         />
-        <div className="items-center  justify-center absolute z-10  bg-black  left-2 right-2 md:left-8 md:right-8  space-y-4  ">
+        <div className="items-center  justify-center absolute z-10 mt-16 sm:mt-0 bg-black  left-2 right-2 md:left-8 md:right-8  space-y-4  ">
           <div className="grid md:grid-cols-12 grid-cols-1 ">
             <div className=" md:col-span-10 p-6 ">
               <div className="grid  grid-cols-2  md:grid-cols-4 gap-x-20   mr-0  md:mr-20  ">

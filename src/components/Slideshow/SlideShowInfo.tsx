@@ -83,7 +83,7 @@ export default function SlideShowInfo({ photo }: SlideshowProps) {
         </div>
         {photo.photos.map((image, index) => (
           <a
-            href={config.apiEndpoints.downloadFile + image.photoUrl}
+            href={config.apiEndpoints.imageUrl + image.photoUrl}
             key={index}
             className="w-screen sm:w-auto  sm:min-w-max h-full flex items-center justify-center  "
             data-pswp-width={image.width ? image.width : 1875}
@@ -92,7 +92,7 @@ export default function SlideShowInfo({ photo }: SlideshowProps) {
             <img
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}
-              src={config.apiEndpoints.downloadFile + image.photoUrl}
+              src={config.apiEndpoints.imageUrl + image.photoUrl}
               className={`object-cover h-full  rounded-lg ${index !== isHovered && isHovered != -1 ? 'opacity-60' : ''}`}
               alt="image"
             />
