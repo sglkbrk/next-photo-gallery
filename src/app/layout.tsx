@@ -17,8 +17,25 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'BsGallery',
-  description: 'My Gallery'
+  title: 'Burak Sağlık | BsGallery',
+  metadataBase: new URL('https://gallery.buraksaglik.com'),
+  alternates: {
+    canonical: '/'
+  },
+  authors: [{ name: 'Burak Sağlık', url: 'https://github.com/sglkbrk' }],
+  description: "Burak Sağlık's gallery website",
+  openGraph: {
+    title: 'Burak Sağlık | BsGallery',
+    description: "Burak Sağlık's gallery website",
+    images: [
+      {
+        url: '/screenshot.png',
+        alt: "Burak Sağlık's Gallery Website",
+        width: 640,
+        height: 800
+      }
+    ]
+  }
 };
 
 export default function RootLayout({
