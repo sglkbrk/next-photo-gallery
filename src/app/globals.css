@@ -8,6 +8,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -23,6 +24,13 @@
 html,
 body {
   height: 100%;
+  scrollbar-width: none; /* Firefox için scroll bar'ı gizler */
+  -ms-overflow-style: none; /* IE ve eski Edge için gizler */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* WebKit tarayıcılar (Chrome, Safari, Edge) için scroll bar'ı gizler */
 }
 
 body {
