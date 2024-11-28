@@ -24,20 +24,24 @@
 html,
 body {
   height: 100%;
-  scrollbar-width: none; /* Firefox için scroll bar'ı gizler */
-  -ms-overflow-style: none; /* IE ve eski Edge için gizler */
+  scrollbar-width: none; /* Firefox için */
+  -ms-overflow-style: none; /* IE ve eski Edge için */
 }
 
 html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  display: none; /* WebKit tarayıcılar (Chrome, Safari, Edge) için scroll bar'ı gizler */
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none; /* WebKit tarayıcılar için tüm elementlerde scroll bar gizleme */
 }
 
 body {
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Ana container'da taşmayı önle */
 }
 
 main {
   flex-grow: 1;
+  overflow: auto; /* İçerik kaydırılabilir kalsın */
+  scrollbar-width: none;
 }
