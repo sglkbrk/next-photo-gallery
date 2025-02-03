@@ -67,8 +67,9 @@ export default function RootLayout({
         />
         <meta property="og:image" content="/screenshot.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </Head>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
       <Script async src="https://www.googletagmanager.com/gtag/js?id=G-2WLHTQ5L8Z" />
       <Script id="google-analytics" strategy="afterInteractive">
         {`
