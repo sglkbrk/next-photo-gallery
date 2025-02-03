@@ -4,6 +4,7 @@ import './globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import Head from 'next/head';
+import Script from 'next/script';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -43,6 +44,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Burak Sağlık',
+    jobTitle: 'Web Developer & Photographer',
+    url: 'https://gallery.buraksaglik.com/',
+    sameAs: [
+      'https://github.com/sglkbrk',
+      'https://www.instagram.com/brksglk',
+      'https://www.linkedin.com/in/burak-saglik/',
+      'https://buraksaglik.com/'
+    ]
+  };
   return (
     <>
       <Head>
@@ -51,9 +65,19 @@ export default function RootLayout({
           property="og:description"
           content="Discover high-resolution photographs and in-depth articles from around the world | Dünyanın dört bir yanından yüksek çözünürlüklü fotoğraflar ve detaylı makaleler keşfedin."
         />
-        <meta property="og:image" content="https://www.example.com/image.jpg" />
+        <meta property="og:image" content="/screenshot.png" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-2WLHTQ5L8Z" />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-2WLHTQ5L8Z');
+          `}
+      </Script>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable}  bg-black min-h-screen w-full h-full md:pl-12 md:pr-12`}>
           <Header />
