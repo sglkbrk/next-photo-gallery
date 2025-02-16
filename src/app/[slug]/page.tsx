@@ -7,7 +7,7 @@ import GalleryGrid from '@/components/Grid/GalleryGrid';
 import GalleryHGrid from '@/components/Grid/GalleryHGrid';
 import { notFound } from 'next/navigation'; // SEO ve 404 durumları için
 import config from '@/config/config';
-import Head from 'next/head';
+import type { Metadata } from 'next';
 
 type Params = Promise<{ slug: string }>;
 interface Photo {
@@ -39,10 +39,44 @@ async function fetchSlugs() {
   if (!res.ok) notFound();
   return res.json();
 }
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await fetchProjects(slug);
+  if (!post) {
+    return {
+      title: '404 - Not Found',
+      description: 'The post you are looking for does not exist.'
+    };
+  }
+  return {
+    title: post.title,
+    description: post.description,
+    alternates: {
+      canonical: 'https://gallery.buraksaglik.com'
+    },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url: `https://gallery.buraksaglik.com/${slug}`,
+      images: [
+        {
+          url: config.apiEndpoints.downloadFile + post.mainImageUrl || '/screenshot.png',
+          width: 800,
+          height: 600,
+          alt: post.title
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [config.apiEndpoints.downloadFile + post.mainImageUrl || '/screenshot.png']
+    }
+  };
+}
 export default async function ProjectPage(props: { params: Params }) {
   const { slug } = await props.params;
-  // metadata.title = 'BsGallery - ' + slug;
-  // metadata.description = slug;
   const data = await fetchProjects(slug);
   const himage = data.photos.filter((x: Photo) => x.format == 0);
   const vimage = data.photos.filter((x: Photo) => x.format == 1);
@@ -54,11 +88,6 @@ export default async function ProjectPage(props: { params: Params }) {
   }
   return (
     <div>
-      <Head>
-        <title>BsGallery - {slug}</title>
-        <meta name="description" content={cc[0]} />
-      </Head>
-
       <BannerFullScreen image={config.apiEndpoints.downloadFile + himage[0].photoUrl} title={data.title} ctiy={data.city} />
       <div className="ml-4 mr-4 xl:ml-64 xl:mr-64">
         <p className="text-gray-400 text-[15px] font-effra">{cc[0]}</p>

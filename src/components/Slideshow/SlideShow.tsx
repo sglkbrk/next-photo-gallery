@@ -73,9 +73,11 @@ export default function SlideShow({ images }: SlideshowProps) {
               }`}
             >
               <Link href={'/' + image.slug} className="text-white text-lg font-bold items-center justify-center">
-                {image.title}
+                <h1 className="text-white text-lg font-bold items-center justify-center">{image.title}</h1>
               </Link>
-              <span className="text-[10px] text-gray-300 items-center justify-center">{image.city}</span>
+              <span className="">
+                <h2 className="text-[10px] text-gray-300 items-center justify-center">{image.client}</h2>
+              </span>
             </div>
           </div>
         ))}

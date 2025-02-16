@@ -39,12 +39,12 @@ export default function Showdeteil({ photo }: SlideshowProps) {
         <div className="flex    md:col-span-2 flex-col justify-start items-start   min-w-[100px]  h-full    space-y-4">
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Title</p>
-            <p className="text-gray-500 text-[14px]">{photo.title}</p>
+            <h1 className="text-gray-500 text-[14px]">{photo.title}</h1>
           </div>
 
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Photographer</p>
-            <p className="text-gray-500 text-[14px]">{photo.photographer}</p>
+            <h1 className="text-gray-500 text-[14px]">{photo.photographer}</h1>
           </div>
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Camera</p>
@@ -78,7 +78,7 @@ export default function Showdeteil({ photo }: SlideshowProps) {
             />
           </a>
           <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-4 h-8 mb-4 opacity-90 space-y-4">
-            <div className="text-white text-[11px] font-effra uppercase tracking-6">{photo.title}</div>
+            <h2 className="text-white text-[11px] font-effra uppercase tracking-6">{photo.title}</h2>
           </div>
         </div>
       </div>

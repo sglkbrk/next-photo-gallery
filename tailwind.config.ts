@@ -27,7 +27,7 @@ const config: Config = {
         foreground: 'var(--foreground)'
       },
       fontFamily: {
-        effra: ['Effra', 'sans-serif']
+        effra: 'var(--font-effra)'
       }
     }
   },

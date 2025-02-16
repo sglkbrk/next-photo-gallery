@@ -57,7 +57,7 @@ export default function SlideShowDetail({ images }: { images: images }) {
               onMouseLeave={() => setIsHovered(-1)}
               src={config.apiEndpoints.downloadFile + image.photoUrl}
               className={`object-cover h-full  rounded-lg z-0 ${index !== isHovered && isHovered != -1 ? 'opacity-60' : ''}`}
-              alt="image"
+              alt={image.description}
             />
             <div
               onMouseEnter={() => setIsHovered(index)}

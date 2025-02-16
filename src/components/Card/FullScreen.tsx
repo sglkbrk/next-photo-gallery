@@ -29,7 +29,6 @@ export default function FullScreen({ photo }: FullScreenProps) {
       pswpModule: () => import('photoswipe')
     });
     lightbox.init();
-
     return () => {
       lightbox.destroy();
     };
@@ -53,7 +52,7 @@ export default function FullScreen({ photo }: FullScreenProps) {
         </div>
       </a>
       <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-2  mb-4 opacity-90 space-y-4">
-        <div className="text-white text-[11px] font-effra uppercase tracking-6">{photo.title}</div>
+        <h1 className="text-white text-[11px] font-effra uppercase tracking-6">{photo.title}</h1>
       </div>
     </div>
   );

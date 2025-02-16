@@ -35,9 +35,7 @@ export default function GalleryGrid({ photos, slug }: GalleryGridProps) {
   }, []);
   return (
     <div className="flex-col items-center justify-center mb-8 mt-8">
-      <div className="flex items-center justify-center">
-        {/* <h5 className="text-white text-[18px] font-effra uppercase justify-center tracking-5 mb-8">Recent Projects</h5> */}
-      </div>
+      <div className="flex items-center justify-center"></div>
       <div id="GalleryGrid_id" className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
         {photos.map((image, index) => (
           <div
@@ -60,15 +58,15 @@ export default function GalleryGrid({ photos, slug }: GalleryGridProps) {
               />
             </a>
             <div className="z-10 absolute bg-black  h-8 mb-4  p-4 flex flex-col items-center justify-center">
-              <div className="text-white text-[10px] font-effra uppercase tracking-5">{image.title}</div>
+              <h1 className="text-white text-[10px] font-effra uppercase tracking-5">{image.title}</h1>
             </div>
           </div>
         ))}
       </div>
       {photos.length && (
         <div className="flex items-center justify-center mt-8">
-          <Link href={slug} className=" items-center h-full justify-center border border-white  border-[0.5px]  p-2 ">
-            <h5 className="text-white text-[13px] font-effra uppercase justify-center tracking-5 ml-1">View All</h5>
+          <Link href={slug} className=" items-center h-full justify-center  border-white  border-[0.5px]  p-2 ">
+            <h6 className="text-white text-[13px] font-effra uppercase justify-center tracking-5 ml-1">View All</h6>
           </Link>
         </div>
       )}

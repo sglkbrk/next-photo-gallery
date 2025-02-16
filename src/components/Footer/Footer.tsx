@@ -3,17 +3,20 @@ export default function Footer() {
   return (
     <footer className="md:pl-0  pl-10 ">
       <div className="flex items-center justify-items-between h-16 md:h-20 sm:h-16  ">
-        <div className="flex-1  justify-items-center align-items-center">
+        <div className="flex  justify-items-center align-items-center">
           <a href="https://buraksaglik.com" className="text-gray-700 text-[12px]">
-            @Burak Sağlık
+            <h2 className="text-[12px] text-gray-500">BsGallery @Burak Sağlık</h2>
           </a>
         </div>
-        <div className="flex-1 ">
-          <p className="text-[12px] text-gray-500 hidden md:block">
-            &copy; All rights reserved. Images licensed for personal use only. No commercial use without permission.
-          </p>
+        <div className="flex-1 justify-center items-center  ">
+          <div className="hidden md:flex  justify-center items-center space-x-2">
+            <h3 className="flex flex-col text-[12px] text-gray-500">
+              &copy; All rights reserved. Images licensed for personal use only. No commercial use without permission.
+            </h3>
+            <h1 className="text-[12px] text-gray-500">Developed by @Burak Saglik</h1>
+          </div>
         </div>
-        <div className="flex flex-1  justify-end  justify-items-end   items-center">
+        <div className="flex   justify-end  justify-items-end   items-center">
           <nav className="flex max-w-[300px] hidden md:block   ">
             <ul className="grid grid-cols-3  justify-items-center  space-x-4">
               <li>

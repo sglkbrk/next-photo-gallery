@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 interface SlideshowProps {
   projects: {
+    title: string;
     mainImageUrl: string;
     city: string;
     slug: string;
@@ -29,11 +30,13 @@ export default function GridImages({ projects }: SlideshowProps) {
                 fill
                 src={config.apiEndpoints.downloadFile + image.mainImageUrl}
                 className="object-cover object-center w-full h-full rounded-lg"
-                alt={image.mainImageUrl}
+                alt={image.title}
               />
               <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-2  mb-4 opacity-70  hover:opacity-100 space-y-4">
-                <Link href={'/' + image.slug} className="text-white text-[11px] font-effra uppercase tracking-6">
-                  {image.city}
+                <Link href={'/' + image.slug} className=" flex flex-col items-center justify-center space-y-2">
+                  <h1 className="text-[11px] font-effra  text-white  uppercase tracking-6 "> {image.title}</h1>
+                  {/* <h3 className="text-[10px] font-effra  text-white  uppercase tracking-6 ">{image.city}</h3> */}
+                  {/* {image.city} */}
                 </Link>
               </div>
             </div>

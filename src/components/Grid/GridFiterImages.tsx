@@ -9,6 +9,7 @@ import Image from 'next/image';
 interface SlideshowProps {
   projects: {
     id: number;
+    title: string;
     photoUrl: string;
     description: string;
     category: number;
@@ -63,8 +64,9 @@ export default function GridFiterImages({ projects }: SlideshowProps) {
                 className="object-cover object-center w-full h-full rounded-lg"
                 alt={image.description}
               />
-              <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-2  mb-4 opacity-70  hover:opacity-100 space-y-4">
-                <div className="text-white text-[11px] font-effra uppercase tracking-6">{image.city}</div>
+              <div className="flex flex-col items-center justify-center z-10 absolute bg-black p-2  mb-4 opacity-70  hover:opacity-100 space-y-2">
+                <h1 className="text-white text-[11px] font-effra uppercase tracking-6">{image.title}</h1>
+                <h2 className="text-white text-[9px] font-effra uppercase tracking-6">{image.city}</h2>
               </div>
             </a>
           </div>

@@ -17,6 +17,14 @@ const geistMono = localFont({
   weight: '100 900'
 });
 
+const effra = localFont({
+  src: '/fonts/Effra-Light.woff2', // Sadece Light versiyonu
+  weight: '300',
+  style: 'normal',
+  variable: '--font-effra',
+  display: 'swap'
+});
+
 export const metadata: Metadata = {
   title: 'Burak Sağlık | BsGallery',
   metadataBase: new URL('https://gallery.buraksaglik.com'),
@@ -24,18 +32,27 @@ export const metadata: Metadata = {
     canonical: '/'
   },
   authors: [{ name: 'Burak Sağlık', url: 'https://github.com/sglkbrk' }],
-  description: "Burak Sağlık's gallery website",
+  description:
+    "Burak Sağlık'ın yurt dışı gezilerinden çektiği fotoğraflar | bsgallery. Dünyanın dört bir yanından ilham dolu manzaralar ve kültürel detaylar. Mobil uyumlu ve modern tasarım ile keşfedin!",
   openGraph: {
     title: 'Burak Sağlık | BsGallery',
-    description: "Burak Sağlık's gallery website",
+    description:
+      "Burak Sağlık'ın yurt dışı gezilerinden çektiği fotoğraflar | bsgallery. Dünyanın dört bir yanından ilham dolu manzaralar ve kültürel detaylar. Mobil uyumlu ve modern tasarım ile keşfedin!",
     images: [
       {
         url: '/screenshot.png',
-        alt: "Burak Sağlık's Gallery Website",
+        alt: "Burak Sağlık'ın yurt dışı gezilerinden çektiği fotoğraflar | bsgallery. Dünyanın dört bir yanından ilham dolu manzaralar ve kültürel detaylar. Mobil uyumlu ve modern tasarım ile keşfedin!",
         width: 640,
         height: 800
       }
     ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Burak Sağlık | BsGallery',
+    description:
+      "Burak Sağlık'ın yurt dışı gezilerinden çektiği fotoğraflar | bsgallery. Dünyanın dört bir yanından ilham dolu manzaralar ve kültürel detaylar. Mobil uyumlu ve modern tasarım ile keşfedin!",
+    images: ['/screenshot.png']
   }
 };
 
@@ -60,10 +77,10 @@ export default function RootLayout({
   return (
     <>
       <Head>
-        <meta property="og:title" content="BsGallery" />
+        <meta property="og:title" content="Burak Sağlık | BsGallery" />
         <meta
           property="og:description"
-          content="Discover high-resolution photographs and in-depth articles from around the world | Dünyanın dört bir yanından yüksek çözünürlüklü fotoğraflar ve detaylı makaleler keşfedin."
+          content="Burak Sağlık'ın yurt dışı gezilerinden çektiği fotoğraflar | bsgallery. Dünyanın dört bir yanından ilham dolu manzaralar ve kültürel detaylar. Mobil uyumlu ve modern tasarım ile keşfedin!"
         />
         <meta property="og:image" content="/screenshot.png" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -80,7 +97,9 @@ export default function RootLayout({
           `}
       </Script>
       <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable}  bg-black min-h-screen w-full h-full md:pl-12 md:pr-12`}>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} ${effra.variable}  bg-black min-h-screen w-full h-full md:pl-12 md:pr-12`}
+        >
           <Header />
           {children}
           <Footer />

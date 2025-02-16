@@ -45,8 +45,8 @@ export default function RecentProjects({ projects }: SlideshowProps) {
               className={`object-cover z-0 object-center w-full h-full ${index !== isHovered && isHovered != -1 ? 'opacity-30' : ''}`}
             />
             <div className="z-10 absolute bg-black opacity-70 hover:opacity-100 p-4 h-8 mb-4 flex flex-col items-center justify-center">
-              <Link href={`/${project.slug}`} className="text-white text-[13px] font-effra uppercase tracking-6">
-                {project.title}
+              <Link href={`/${project.slug}`} className="">
+                <h1 className="text-white text-[13px] font-effra uppercase tracking-6"> {project.title}</h1>
               </Link>
             </div>
           </div>

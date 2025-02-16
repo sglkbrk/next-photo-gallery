@@ -14,7 +14,7 @@ export default function Aboutme() {
         <Image
           width={1000}
           height={1000}
-          alt=""
+          alt="Burak Saglik"
           src="https://gallery.buraksaglik.com/api/MinioFile/download/588fc047-34ca-458c-9f8b-bf8839227162.jpeg"
           className="object-cover  object-center w-full h-full blur-sm"
         />
@@ -24,11 +24,11 @@ export default function Aboutme() {
               <div className="grid  grid-cols-2  md:grid-cols-4 gap-x-20   mr-0  md:mr-20  ">
                 <div>
                   <p className="text-white text-[14px] font-bold">Name</p>
-                  <p className="text-gray-400 text-[13px] ">Burak Sağlık</p>
+                  <h1 className="text-gray-400 text-[13px] ">Burak Sağlık</h1>
                 </div>
                 <div>
                   <p className="text-white text-[14px] font-bold">Title</p>
-                  <p className="text-gray-400 text-[13px] ">Software developer & Photographer</p>
+                  <h1 className="text-gray-400 text-[13px] ">Software developer & Photographer</h1>
                 </div>
                 <div>
                   <p className="text-white text-[14px] font-bold">Date</p>
@@ -39,8 +39,8 @@ export default function Aboutme() {
                   <p className="text-gray-400 text-[13px]">Istanbul</p>
                 </div>
               </div>
-              <p className="text-gray-400 text-[13px]   mt-10 mr-0 sm:mr-8 font-extralight tracking-3"></p>
-              <p className="text-gray-400 text-[13px] mt-10 font-extralight mr-0 sm:mr-8 tracking-3">
+              <h2 className="text-gray-400 text-[13px]   mt-10 mr-0 sm:mr-8 font-extralight tracking-3">Hi, I am Burak Saglik.</h2>
+              <p className="text-gray-400 text-[13px] mt-3 font-extralight mr-0 sm:mr-8 tracking-3">
                 I graduated as the top of my class from Sivas Cumhuriyet University in 2018 with a degree in Management Information Systems.
                 I started my career in 2016 at Detaysoft as a Web and Mobile Developer. During this time, I gained experience working as a
                 Frontend Developer, Mobile Developer, and SAP Fiori Developer, contributing to both web and mobile projects. I develop

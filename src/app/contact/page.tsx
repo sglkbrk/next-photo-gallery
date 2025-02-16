@@ -54,8 +54,8 @@ export default function Home() {
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full gap-4 mt-12 justify-items-start md:justify-items-center items-center">
         <div>
-          <p className="text-white text-[14px] font-extralight tracking-3 w-25">Telefon</p>
-          <p className="text-white text-[13px] font-extralight w-25">---</p>
+          <h1 className="text-white text-[14px] font-extralight tracking-3 w-25">Name</h1>
+          <h1 className="text-white text-[13px] font-extralight w-25">Burak Sağlık</h1>
         </div>
         <div>
           <p className="text-white text-[14px] font-extralight tracking-3 w-25">Address</p>
