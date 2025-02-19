@@ -39,24 +39,24 @@ export default function Showdeteil({ photo }: SlideshowProps) {
         <div className="flex    md:col-span-2 flex-col justify-start items-start   min-w-[100px]  h-full    space-y-4">
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Title</p>
-            <h1 className="text-gray-500 text-[14px]">{photo.title}</h1>
+            <h3 className="text-gray-500 text-[14px]">{photo.title}</h3>
           </div>
 
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Photographer</p>
-            <h1 className="text-gray-500 text-[14px]">{photo.photographer}</h1>
+            <h2 className="text-gray-500 text-[14px]">{photo.photographer}</h2>
           </div>
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Camera</p>
-            <p className="text-gray-500 text-[14px]">{photo.camera}</p>
+            <h3 className="text-gray-500 text-[14px]">{photo.camera}</h3>
           </div>
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Lens</p>
-            <p className="text-gray-500 text-[14px]">{photo.lens}</p>
+            <h3 className="text-gray-500 text-[14px]">{photo.lens}</h3>
           </div>
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Focal Length</p>
-            <p className="text-gray-500 text-[14px]">{photo.focalLength}</p>
+            <h3 className="text-gray-500 text-[14px]">{photo.focalLength}</h3>
           </div>
         </div>
         <div

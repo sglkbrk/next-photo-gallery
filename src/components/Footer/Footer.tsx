@@ -13,7 +13,7 @@ export default function Footer() {
             <h3 className="flex flex-col text-[12px] text-gray-500">
               &copy; All rights reserved. Images licensed for personal use only. No commercial use without permission.
             </h3>
-            <h1 className="text-[12px] text-gray-500">Developed by @Burak Saglik</h1>
+            <h2 className="text-[12px] text-gray-500">Developed by @Burak Saglik</h2>
           </div>
         </div>
         <div className="flex   justify-end  justify-items-end   items-center">

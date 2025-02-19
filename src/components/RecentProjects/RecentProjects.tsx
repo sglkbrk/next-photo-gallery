@@ -46,7 +46,7 @@ export default function RecentProjects({ projects }: SlideshowProps) {
             />
             <div className="z-10 absolute bg-black opacity-70 hover:opacity-100 p-4 h-8 mb-4 flex flex-col items-center justify-center">
               <Link href={`/${project.slug}`} className="">
-                <h1 className="text-white text-[13px] font-effra uppercase tracking-6"> {project.title}</h1>
+                <h2 className="text-white text-[13px] font-effra uppercase tracking-6"> {project.title}</h2>
               </Link>
             </div>
           </div>

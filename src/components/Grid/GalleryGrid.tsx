@@ -60,7 +60,7 @@ export default function GalleryGrid({ photos, slug }: GalleryGridProps) {
               />
             </a>
             <div className="z-10 absolute bg-black  h-8 mb-4  p-4 flex flex-col items-center justify-center">
-              <h1 className="text-white text-[10px] font-effra uppercase tracking-5">{image.title}</h1>
+              <h2 className="text-white text-[10px] font-effra uppercase tracking-5">{image.title}</h2>
             </div>
           </div>
         ))}
