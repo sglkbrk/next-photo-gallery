@@ -9,3 +9,8 @@ services:
       - '3001:3001'
     environment:
       NODE_ENV: production
+    networks:
+      - app-network
+networks:
+  app-network:
+    external: true
