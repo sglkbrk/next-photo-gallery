@@ -1,34 +1,24 @@
-FROM node:18-alpine as base
+# 1) Builder Stage
+FROM node:18-alpine AS builder
 WORKDIR /app
-COPY package*.json ./
-EXPOSE 3000
 
-FROM base as builder
-WORKDIR /app
+COPY package*.json ./
+RUN npm install --production=false
+
 COPY . .
 RUN npm run build
 
-
-FROM base as production
+# 2) Runner Stage (En hafif)
+FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-RUN npm ci
+ENV PORT=4000
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-USER nextjs
+COPY --from=builder /app ./
 
+RUN npm install --production --ignore-scripts --prefer-offline
 
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/public ./public
+EXPOSE 3001
 
-CMD npm start
-
-FROM base as dev
-ENV NODE_ENV=development
-RUN npm install 
-COPY . .
-CMD npm run dev
+CMD ["npm", "run", "start"]
