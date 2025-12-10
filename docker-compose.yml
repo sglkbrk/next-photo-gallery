@@ -6,7 +6,6 @@ services:
     container_name: next-photo-gallery
     restart: always
 
-    # Sadece sunucu içinden erişilsin
     ports:
       - '127.0.0.1:3001:3001'
 
@@ -18,7 +17,6 @@ services:
     networks:
       - app-network
 
-    # Ek güvenlik
     read_only: true
     security_opt:
       - no-new-privileges:true
