@@ -1,16 +1,30 @@
-version: '3'
+version: '3.9'
 
 services:
   next:
     build: .
     container_name: next-photo-gallery
     restart: always
+
+    # Sadece sunucu içinden erişilsin
     ports:
-      - '3001:3001'
+      - '127.0.0.1:3001:3001'
+
     environment:
       NODE_ENV: production
+      PORT: 3001
+      HOST: 127.0.0.1
+
     networks:
       - app-network
+
+    # Ek güvenlik
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
 networks:
   app-network:
     external: true
