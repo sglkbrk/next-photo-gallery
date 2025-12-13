@@ -114,7 +114,7 @@ export default function Aboutme() {
             <div className=" md:col-span-2  h-full flex flex-1 justify-center items-center">
               <div className="md:col-span-2 mt-2 md:mt-0 justify-items-end w-full h-96 md:h-60 relative">
                 <Image
-                  src="https://buraksaglik.com/assets/images/banner/IMG_0419.jpeg"
+                  src="https://buraksaglik.com/user.jpeg"
                   layout="fill"
                   objectFit="cover"
                   objectPosition="center"

@@ -34,6 +34,12 @@ const nextConfig: NextConfig = {
         hostname: 'localhost:5001',
         port: '',
         pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.buraksaglik.com',
+        port: '',
+        pathname: '/**'
       }
     ]
   }
