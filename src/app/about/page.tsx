@@ -3,9 +3,44 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'BsGallery - About',
+  title: 'Burak Sağlık - Fotoğrafçı & Yazılımcı Portfolyosu',
   description:
-    'Discover high-resolution photographs and in-depth articles from around the world | Dünyanın dört bir yanından yüksek çözünürlüklü fotoğraflar ve detaylı makaleler keşfedin.'
+    "Burak Sağlık'ın fotoğrafçılık ve yazılım portfolyosunu keşfedin. Burak Saglik tarafından çekilmiş yüksek çözünürlüklü fotoğraflar ve projeler hakkında detaylı bilgiler. Profesyonel fotoğrafçı ve yazılımcı Burak Sağlık ile iletişime geçin.",
+  keywords: [
+    'Burak Sağlık',
+    'Burak Saglik',
+    'fotoğrafçı',
+    'fotoğrafçılık',
+    'yazılımcı',
+    'portfolyo',
+    'web geliştirme',
+    'mobil uygulama',
+    'SAP Fiori'
+  ],
+  openGraph: {
+    title: 'Burak Sağlık - Fotoğrafçı & Yazılımcı Portfolyosu',
+    description:
+      "Burak Sağlık'ın fotoğrafçılık ve yazılım portfolyosunu keşfedin. Burak Saglik tarafından çekilmiş yüksek çözünürlüklü fotoğraflar ve projeler hakkında detaylı bilgiler. Profesyonel fotoğrafçı ve yazılımcı Burak Sağlık ile iletişime geçin.",
+    url: 'https://buraksaglik.com/about',
+    siteName: 'Burak Sağlık Portfolyo',
+    images: [
+      {
+        url: 'https://api.buraksaglik.com/api/MinioFile/download/588fc047-34ca-458c-9f8b-bf8839227162.jpeg',
+        width: 1000,
+        height: 1000,
+        alt: 'Burak Sağlık Portfolyo'
+      }
+    ],
+    locale: 'tr_TR',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Burak Sağlık - Fotoğrafçı & Yazılımcı Portfolyosu',
+    description:
+      "Burak Sağlık'ın fotoğrafçılık ve yazılım portfolyosunu keşfedin. Burak Saglik tarafından çekilmiş yüksek çözünürlüklü fotoğraflar ve projeler hakkında detaylı bilgiler. Profesyonel fotoğrafçı ve yazılımcı Burak Sağlık ile iletişime geçin.",
+    images: ['https://api.buraksaglik.com/api/MinioFile/download/588fc047-34ca-458c-9f8b-bf8839227162.jpeg']
+  }
 };
 export default function Aboutme() {
   return (
@@ -14,8 +49,8 @@ export default function Aboutme() {
         <Image
           width={1000}
           height={1000}
-          alt="Burak Saglik"
-          src="https://gallery.buraksaglik.com/api/MinioFile/download/588fc047-34ca-458c-9f8b-bf8839227162.jpeg"
+          alt="Burak Sağlık - Fotoğrafçı ve Yazılımcı"
+          src="https://api.buraksaglik.com/api/MinioFile/download/588fc047-34ca-458c-9f8b-bf8839227162.jpeg"
           className="object-cover  object-center w-full h-full blur-sm"
         />
         <div className="items-center  justify-center absolute z-10 mt-16 sm:mt-0 bg-black  left-2 right-2 md:left-8 md:right-8  space-y-4  ">
@@ -23,30 +58,31 @@ export default function Aboutme() {
             <div className=" md:col-span-10 p-6 ">
               <div className="grid  grid-cols-2  md:grid-cols-4 gap-x-20   mr-0  md:mr-20  ">
                 <div>
-                  <p className="text-white text-[14px] font-bold">Name</p>
+                  <p className="text-white text-[14px] font-bold">İsim</p>
                   <h1 className="text-gray-400 text-[13px] ">Burak Sağlık</h1>
                 </div>
                 <div>
-                  <p className="text-white text-[14px] font-bold">Title</p>
-                  <h1 className="text-gray-400 text-[13px] ">Software developer & Photographer</h1>
+                  <p className="text-white text-[14px] font-bold">Unvan</p>
+                  <h2 className="text-gray-400 text-[13px] ">Yazılım Geliştirici & Fotoğrafçı</h2>
                 </div>
                 <div>
-                  <p className="text-white text-[14px] font-bold">Date</p>
+                  <p className="text-white text-[14px] font-bold">Doğum Tarihi</p>
                   <p className="text-gray-400 text-[13px]">02.05.1996</p>
                 </div>
                 <div>
-                  <p className="text-white text-[14px] font-bold">Place</p>
-                  <p className="text-gray-400 text-[13px]">Istanbul</p>
+                  <p className="text-white text-[14px] font-bold">Konum</p>
+                  <p className="text-gray-400 text-[13px]">İstanbul</p>
                 </div>
               </div>
-              <h2 className="text-gray-400 text-[13px]   mt-10 mr-0 sm:mr-8 font-extralight tracking-3">Hi, I am Burak Saglik.</h2>
+              <h2 className="text-gray-400 text-[13px]   mt-10 mr-0 sm:mr-8 font-extralight tracking-3">Merhaba, Ben Burak Sağlık</h2>
               <p className="text-gray-400 text-[13px] mt-3 font-extralight mr-0 sm:mr-8 tracking-3">
-                I graduated as the top of my class from Sivas Cumhuriyet University in 2018 with a degree in Management Information Systems.
-                I started my career in 2016 at Detaysoft as a Web and Mobile Developer. During this time, I gained experience working as a
-                Frontend Developer, Mobile Developer, and SAP Fiori Developer, contributing to both web and mobile projects. I develop
-                dynamic applications using modern technologies such as React.js and Vue.js, while also creating enterprise solutions with
-                SAP Fiori. I continue my professional journey at Detaysoft, aiming to add value to my projects by keeping up with
-                technological advancements.
+                Burak Sağlık olarak, 2018 yılında Sivas Cumhuriyet Üniversitesi Yönetim Bilişim Sistemleri bölümünden birincilikle mezun
+                oldum. Kariyerime 2016 yılında Detaysoft&apos;ta Web ve Mobil Geliştirici olarak başladım. Bu süre zarfında Frontend
+                Developer, Mobile Developer ve SAP Fiori Developer olarak hem web hem de mobil projelerde deneyim kazandım. React.js ve
+                Vue.js gibi modern teknolojiler kullanarak dinamik uygulamalar geliştiriyor, aynı zamanda SAP Fiori ile kurumsal çözümler
+                oluşturuyorum. Profesyonel kariyerime şu anda Innova&apos;da devam ediyorum ve teknolojik gelişmeleri takip ederek
+                projelerime değer katmayı hedefliyorum. Burak Sağlık olarak, yazılım geliştirme ve fotoğrafçılık alanlarında kendimi sürekli
+                geliştiriyorum.
               </p>
               <div className="flex flex-row items-center  mt-10 mr-8 justify-between">
                 <a href="mailto:sglk.brk@gmail.com" className="text-white text-[13px] font-extralight tracking-3">
@@ -82,7 +118,7 @@ export default function Aboutme() {
                   layout="fill"
                   objectFit="cover"
                   objectPosition="center"
-                  alt="Banner Image"
+                  alt="Burak Sağlık Portfolyo - Fotoğrafçı ve Yazılımcı"
                 />
               </div>
             </div>
