@@ -3,7 +3,6 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import Head from 'next/head';
 import Script from 'next/script';
 
 const geistSans = localFont({
@@ -75,36 +74,24 @@ export default function RootLayout({
     ]
   };
   return (
-    <>
-      <Head>
-        <meta property="og:title" content="Burak Sağlık | BsGallery" />
-        <meta
-          property="og:description"
-          content="Burak Sağlık'ın yurt dışı gezilerinden çektiği fotoğraflar | bsgallery. Dünyanın dört bir yanından ilham dolu manzaralar ve kültürel detaylar. Mobil uyumlu ve modern tasarım ile keşfedin!"
-        />
-        <meta property="og:image" content="/screenshot.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      </Head>
-
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-2WLHTQ5L8Z" />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${effra.variable}  bg-black min-h-screen w-full h-full md:pl-12 md:pr-12`}
+      >
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-2WLHTQ5L8Z" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-2WLHTQ5L8Z');
           `}
-      </Script>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} ${effra.variable}  bg-black min-h-screen w-full h-full md:pl-12 md:pr-12`}
-        >
-          <Header />
-          {children}
-          <Footer />
-        </body>
-      </html>
-    </>
+        </Script>
+        <Header />
+        {children}
+        <Footer />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      </body>
+    </html>
   );
 }

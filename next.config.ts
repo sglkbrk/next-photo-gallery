@@ -6,12 +6,22 @@ const nextConfig: NextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        pathname: '/api/files/**'
+        pathname: '/api/**'
       },
       {
         protocol: 'https',
         hostname: 'gallery.buraksaglik.com',
-        pathname: '/api/files/**'
+        pathname: '/api/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.buraksaglik.com',
+        pathname: '/api/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'buraksaglik.com',
+        pathname: '/**'
       }
     ]
   }

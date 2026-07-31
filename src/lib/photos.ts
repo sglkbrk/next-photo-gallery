@@ -2,9 +2,14 @@ import { prisma } from './db';
 import { Format } from '@/types/gallery';
 
 export async function getAllPhotos() {
-  return prisma.photo.findMany({
-    orderBy: { id: 'desc' }
-  });
+  try {
+    return await prisma.photo.findMany({
+      orderBy: { id: 'desc' }
+    });
+  } catch (error) {
+    console.error('getAllPhotos failed:', error);
+    return [];
+  }
 }
 
 export async function getPhotoById(id: number) {

@@ -3,25 +3,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 import config from '@/config/config';
 import Image from 'next/image';
+import type { Project } from '@/types/gallery';
 
 interface SlideshowProps {
-  projects: {
-    id: number;
-    title: string;
-    description: string;
-    city: string;
-    client: string;
-    photographer: string;
-    camera: string;
-    category: number;
-    websiteUrl: string;
-    mainImageUrl: string;
-    slug: string;
-    status: number;
-    homePage: boolean;
-    createdAt: string; // ISO date string
-    photos: [];
-  }[];
+  projects: Project[];
 }
 export default function RecentProjects({ projects }: SlideshowProps) {
   const [isHovered, setIsHovered] = useState<number>(-1);

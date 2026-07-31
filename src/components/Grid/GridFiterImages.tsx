@@ -5,18 +5,10 @@ import 'photoswipe/style.css';
 import Filters from '@/components/Filters/Filters';
 import config from '@/config/config';
 import Image from 'next/image';
+import type { Photo } from '@/types/gallery';
 
 interface SlideshowProps {
-  projects: {
-    id: number;
-    title: string;
-    photoUrl: string;
-    description: string;
-    category: number;
-    city: string;
-    width: number;
-    height: number;
-  }[];
+  projects: Photo[];
 }
 export default function GridFiterImages({ projects }: SlideshowProps) {
   const [isHovered, setIsHovered] = useState<number>(-1);
@@ -53,14 +45,14 @@ export default function GridFiterImages({ projects }: SlideshowProps) {
             className={`relative w-fullitems-end justify-center ${index !== isHovered && isHovered != -1 ? 'opacity-70' : ''}`}
           >
             <a
-              href={config.apiEndpoints.imageUrl + image.photoUrl}
+              href={config.apiEndpoints.imageUrl + (image.photoUrl ?? '')}
               data-pswp-width={image.width}
               data-pswp-height={image.height}
               className="relative pswp-gallery__item  flex flex-col items-center justify-center h-[351px]"
             >
               <Image
                 fill
-                src={config.apiEndpoints.downloadFile + image.photoUrl}
+                src={config.apiEndpoints.downloadFile + (image.photoUrl ?? '')}
                 className="object-cover object-center w-full h-full rounded-lg"
                 alt={image.description}
               />

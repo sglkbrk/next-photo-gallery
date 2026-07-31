@@ -68,12 +68,17 @@ export async function getRecentProjects(count: number) {
 }
 
 export async function getHomeProjects(count: number) {
-  const projects = await prisma.projects.findMany({
-    where: { homePage: true },
-    orderBy: { createdAt: 'desc' },
-    take: count
-  });
-  return projects.map(serializeProject);
+  try {
+    const projects = await prisma.projects.findMany({
+      where: { homePage: true },
+      orderBy: { createdAt: 'desc' },
+      take: count
+    });
+    return projects.map(serializeProject);
+  } catch (error) {
+    console.error('getHomeProjects failed:', error);
+    return [];
+  }
 }
 
 export async function getAllSlugs() {

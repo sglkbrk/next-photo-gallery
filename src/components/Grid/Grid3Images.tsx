@@ -3,15 +3,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import config from '@/config/config';
 import Image from 'next/image';
+import type { Project } from '@/types/gallery';
 
 interface SlideshowProps {
-  projects: {
-    title: string;
-    mainImageUrl: string;
-    city: string;
-    slug: string;
-    category: number;
-  }[];
+  projects: Project[];
 }
 export default function GridImages({ projects }: SlideshowProps) {
   const [isHovered, setIsHovered] = useState<number>(-1);
@@ -28,7 +23,7 @@ export default function GridImages({ projects }: SlideshowProps) {
             <div className="relative flex flex-col items-center justify-center h-[351px]">
               <Image
                 fill
-                src={config.apiEndpoints.downloadFile + image.mainImageUrl}
+                src={config.apiEndpoints.downloadFile + (image.mainImageUrl ?? '')}
                 className="object-cover object-center w-full h-full rounded-lg"
                 alt={image.title}
               />

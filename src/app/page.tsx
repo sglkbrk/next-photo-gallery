@@ -10,6 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const projects = await fetchApi<Project[]>('/api/projects/home/8', 3600);
+  const projects = await fetchApi<Project[]>('/api/projects/home/8', 3600, []);
   return <SlideShow images={projects} />;
 }

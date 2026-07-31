@@ -5,16 +5,8 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import config from '@/config/config';
 import Image from 'next/image';
+import type { Photo } from '@/types/gallery';
 
-interface Photo {
-  id: number;
-  photoUrl: string;
-  description: string;
-  format: number;
-  height: number;
-  width: number;
-  title: string;
-}
 interface GalleryGridProps {
   photos: Photo[];
   slug: string;

@@ -4,39 +4,20 @@ import { useEffect, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import config from '@/config/config';
 import Image from 'next/image';
+import type { Project, Photo } from '@/types/gallery';
 
-interface Photo {
-  photoUrl: string;
-  title: string;
-  width: number;
-  height: number;
-}
 interface FullScreenProps {
-  photo: {
-    id: number;
-    title: string;
-    description: string;
-    city: string;
-    client: string;
-    photographer: string;
-    camera: string;
-    category: number;
-    websiteUrl: string;
-    mainImageUrl: string;
-    slug: string;
-    status: number;
-    homePage: boolean;
-    createdAt: string; // ISO date string
-    photos: Photo[];
-  };
+  photo: Project;
 }
 export default function SlideShowVNav({ photo }: FullScreenProps) {
   const [imgSy, setImagSy] = useState<number>(0);
+  const photos: Photo[] = photo.photos ?? [];
+  const currentPhoto = photos[imgSy] ?? { photoUrl: '', title: '', width: 0, height: 0 };
 
   const setImage = (index: number) => {
     if (index < 0) {
-      setImagSy(photo.photos.length - 1);
-    } else if (index > photo.photos.length - 1) {
+      setImagSy(photos.length - 1);
+    } else if (index > photos.length - 1) {
       setImagSy(0);
     } else {
       setImagSy(index);
@@ -49,20 +30,20 @@ export default function SlideShowVNav({ photo }: FullScreenProps) {
         <div className="flex flex-col md:hidden  mt-32">
           <FaChevronLeft onClick={() => setImage(imgSy - 1)} className="text-white text-3xl" />
         </div>
-        <a className="h-full w-screen justify-start justify-center items-center">
+        <a className="h-full w-screen items-center justify-center">
           <Image
-            width={photo.photos[imgSy].width}
-            height={photo.photos[imgSy].height}
-            alt={photo.photos[imgSy].title}
-            src={config.apiEndpoints.downloadFile + photo.photos[imgSy].photoUrl}
-            className="object-cover  object-center  w-full w-screen md:pr-8 h-screen"
+            width={currentPhoto.width}
+            height={currentPhoto.height}
+            alt={currentPhoto.title}
+            src={config.apiEndpoints.downloadFile + currentPhoto.photoUrl}
+            className="object-cover object-center w-screen md:pr-8 h-screen"
           />
         </a>
         <div className="flex flex-col md:hidden  mt-32">
           <FaChevronRight onClick={() => setImage(imgSy + 1)} className="text-white text-3xl" />
         </div>
-        <div className="flex flex-col justify-center items-center z-10 absolute hidden md:flex mt-48 w-56 space-y-4 ">
-          {photo.photos.map((image, index) => (
+        <div className="flex flex-col justify-center items-center z-10 absolute md:flex mt-48 w-56 space-y-4 ">
+          {photos.map((image, index) => (
             <div
               key={index}
               onClick={() => setImage(index)}

@@ -4,33 +4,13 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import config from '@/config/config';
 import Image from 'next/image';
-interface Photo {
-  photoUrl: string;
-  width: number;
-  height: number;
-  title: string;
-  description: string;
-}
+import type { Project } from '@/types/gallery';
+
 interface SlideshowProps {
-  photo: {
-    id: number;
-    title: string;
-    description: string;
-    city: string;
-    client: string;
-    photographer: string;
-    camera: string;
-    category: number;
-    websiteUrl: string;
-    mainImageUrl: string;
-    slug: string;
-    status: number;
-    homePage: boolean;
-    createdAt: string; // ISO date string
-    photos: Photo[];
-  };
+  photo: Project;
 }
 export default function SlideShowInfo({ photo }: SlideshowProps) {
+  const photos = photo.photos ?? [];
   const [showHint, setShowHint] = useState(true);
   const [isHovered, setIsHovered] = useState<number>(-1);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -90,7 +70,7 @@ export default function SlideShowInfo({ photo }: SlideshowProps) {
             <p className="text-gray-500  text-right  text-[14px]">{photo.category}</p>
           </div>
         </div>
-        {photo.photos.map((image, index) => (
+        {photos.map((image, index) => (
           <div
             key={index}
             className="relative h-full  w-full w-screen sm:w-[80vw] md:w-[45vw] lg:w-[35vw] xl:w-[25vw]  flex items-end justify-center"

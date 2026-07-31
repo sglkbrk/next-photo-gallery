@@ -3,24 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import config from '@/config/config';
 import Image from 'next/image';
+import type { Project } from '@/types/gallery';
 
 interface SlideshowProps {
-  images: {
-    id: number;
-    title: string;
-    description: string;
-    city: string;
-    client: string;
-    photographer: string;
-    camera: string;
-    category: number;
-    websiteUrl: string;
-    mainImageUrl: string;
-    slug: string;
-    status: number;
-    homePage: boolean;
-    createdAt: string; // ISO date string
-  }[];
+  images: Project[];
 }
 
 export default function SlideShow({ images }: SlideshowProps) {
@@ -60,7 +46,7 @@ export default function SlideShow({ images }: SlideshowProps) {
               fill
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}
-              src={config.apiEndpoints.downloadFile + image.mainImageUrl}
+              src={config.apiEndpoints.downloadFile + (image.mainImageUrl ?? '')}
               alt={image.title}
               objectFit="cover"
               className="object-cover h-full p-3 sm:p-0"
