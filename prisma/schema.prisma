@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Projects {
+  id           Int      @id @default(autoincrement()) @map("Id")
+  title        String   @map("Title")
+  description  String   @map("Description") @db.LongText
+  city         String   @map("City")
+  client       String   @map("Client")
+  photographer String   @map("Photographer")
+  camera       String   @map("Camera")
+  category     Int      @map("Category")
+  mainImageUrl String?  @map("MainImageUrl")
+  slug         String   @map("Slug") @db.VarChar(40)
+  status       Int      @map("Status")
+  homePage     Boolean  @map("HomePage")
+  createdAt    DateTime @default(now()) @map("CreatedAt")
+  photos       Photo[]
+
+  @@index([slug], map: "IX_Projects_Slug")
+  @@index([createdAt], map: "IX_Projects_CreatedAt")
+  @@map("Projects")
+}
+
+model Photo {
+  id           Int      @id @default(autoincrement()) @map("Id")
+  projectsId   Int      @map("ProjectsId")
+  photoUrl     String?  @map("PhotoUrl")
+  title        String   @map("Title")
+  subtitle     String   @map("Subtitle")
+  description  String   @map("Description") @db.LongText
+  location     String   @map("Location")
+  city         String   @map("City")
+  photographer String   @map("Photographer")
+  category     Int      @map("Category")
+  size         Int      @map("Size")
+  format       Int      @map("Format")
+  width        Int      @map("Width")
+  height       Int      @map("Height")
+  camera       String?  @map("Camera")
+  lens         String?  @map("Lens")
+  focalLength  String?  @map("FocalLength")
+  aperture     String?  @map("Aperture")
+  iso          String?  @map("Iso")
+  shutterSpeed String?  @map("ShutterSpeed")
+  date         String?  @map("Date")
+  project      Projects @relation(fields: [projectsId], references: [id])
+
+  @@index([projectsId], map: "IX_Photo_ProjectsId")
+  @@map("Photo")
+}
+
+model ContantMe {
+  id      Int      @id @default(autoincrement()) @map("Id")
+  name    String   @map("Name")
+  email   String   @map("Email")
+  subject String   @map("subject")
+  message String   @map("Message") @db.LongText
+  created DateTime @default(now()) @map("Created")
+
+  @@map("ContantMe")
+}

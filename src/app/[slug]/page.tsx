@@ -5,49 +5,27 @@ import FullScreen from '@/components/Card/FullScreen';
 import ProjectsNavigation from '@/components/ProjectsNavigation/ProjectsNavigation';
 import GalleryGrid from '@/components/Grid/GalleryGrid';
 import GalleryHGrid from '@/components/Grid/GalleryHGrid';
-import { notFound } from 'next/navigation'; // SEO ve 404 durumları için
-import config from '@/config/config';
+import { notFound } from 'next/navigation';
+import { getImageUrl } from '@/config/config';
 import type { Metadata } from 'next';
+import { fetchApi } from '@/lib/fetch-api';
+import type { Photo, Project } from '@/types/gallery';
 
 type Params = Promise<{ slug: string }>;
-interface Photo {
-  id: number;
-  photo_url: string;
-  description: string;
-  format: number;
-}
-async function fetchProjects(id: string) {
-  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/projects/${id}`, {
-    cache: 'no-store' // SSR için cache'i kapatıyoruz
-  });
-  if (!res.ok) notFound();
-  return res.json();
-}
 
-async function fetchRecentProjects() {
-  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/projects/recent/4`, {
-    cache: 'no-store' // SSR için cache'i kapatıyoruz
-  });
-  if (!res.ok) notFound();
-  return res.json();
-}
-
-async function fetchSlugs() {
-  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/projects/slugs`, {
-    cache: 'no-store' // SSR için cache'i kapatıyoruz
-  });
-  if (!res.ok) notFound();
-  return res.json();
-}
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await fetchProjects(slug);
+  const post = await fetchApi<Project>(`/api/projects/${slug}`, 86400);
+
   if (!post) {
     return {
       title: '404 - Not Found',
       description: 'The post you are looking for does not exist.'
     };
   }
+
+  const imageUrl = getImageUrl(post.mainImageUrl);
+
   return {
     title: post.title,
     description: post.description,
@@ -60,7 +38,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       url: `https://gallery.buraksaglik.com/${slug}`,
       images: [
         {
-          url: config.apiEndpoints.downloadFile + post.mainImageUrl || '/screenshot.png',
+          url: imageUrl,
           width: 800,
           height: 600,
           alt: post.title
@@ -71,24 +49,27 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
-      images: [config.apiEndpoints.downloadFile + post.mainImageUrl || '/screenshot.png']
+      images: [imageUrl]
     }
   };
 }
+
 export default async function ProjectPage(props: { params: Params }) {
   const { slug } = await props.params;
-  const data = await fetchProjects(slug);
-  const himage = data.photos.filter((x: Photo) => x.format == 0);
-  const vimage = data.photos.filter((x: Photo) => x.format == 1);
-  const recentProject = await fetchRecentProjects();
-  const slugs = await fetchSlugs();
+  const data = await fetchApi<Project>(`/api/projects/${slug}`, 86400);
+  const himage = (data.photos ?? []).filter((x: Photo) => x.format === 0);
+  const vimage = (data.photos ?? []).filter((x: Photo) => x.format === 1);
+  const recentProject = await fetchApi<Project[]>('/api/projects/recent/4', 3600);
+  const slugs = await fetchApi<string[]>('/api/projects/slugs', 3600);
   const cc = data.description.split('&');
+
   if (!data || himage.length < 3) {
     notFound();
   }
+
   return (
     <div>
-      <BannerFullScreen image={config.apiEndpoints.downloadFile + himage[0].photoUrl} title={data.title} ctiy={data.city} />
+      <BannerFullScreen image={getImageUrl(himage[0].photoUrl)} title={data.title} ctiy={data.city} />
       <div className="ml-4 mr-4 xl:ml-64 xl:mr-64">
         <p className="text-gray-400 text-[15px] font-effra">{cc[0]}</p>
         <Showdeteil photo={himage[1]} />

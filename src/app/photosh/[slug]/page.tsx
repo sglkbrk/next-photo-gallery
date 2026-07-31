@@ -1,29 +1,33 @@
 import SlideShowVNav from '@/components/Slideshow/SlideShowVNav';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import config from '@/config/config';
+import { getImageUrl } from '@/config/config';
+import { fetchApi } from '@/lib/fetch-api';
+import type { Project } from '@/types/gallery';
 
 type Params = Promise<{ slug: string }>;
 
 async function fetchProjects(id: string) {
-  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/Projects/${id}/0`, {
-    cache: 'no-store' // SSR için cache'i kapatıyoruz
-  });
-  if (!res.ok) notFound();
-
-  return res.json();
+  try {
+    return await fetchApi<Project>(`/api/projects/${id}/0`, 86400);
+  } catch {
+    notFound();
+  }
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
   const post = await fetchProjects(slug);
-  console.log(post);
+
   if (!post) {
     return {
       title: '404 - Not Found',
       description: 'The post you are looking for does not exist.'
     };
   }
+
+  const imageUrl = getImageUrl(post.mainImageUrl);
+
   return {
     title: post.title,
     description: post.description,
@@ -36,7 +40,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       url: `https://gallery.buraksaglik.com/${slug}`,
       images: [
         {
-          url: config.apiEndpoints.downloadFile + post.mainImageUrl || '/screenshot.png',
+          url: imageUrl,
           width: 800,
           height: 600,
           alt: post.title
@@ -47,7 +51,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
-      images: [config.apiEndpoints.downloadFile + post.mainImageUrl || '/screenshot.png']
+      images: [imageUrl]
     }
   };
 }

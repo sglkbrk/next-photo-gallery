@@ -13,11 +13,17 @@ services:
       NODE_ENV: production
       PORT: 3001
       HOST: 127.0.0.1
+      DATABASE_URL: ${DATABASE_URL}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      UPLOADS_DIR: /app/uploads
+
+    volumes:
+      - ./uploads:/app/uploads
 
     networks:
       - app-network
 
-    read_only: true
     security_opt:
       - no-new-privileges:true
     cap_drop:

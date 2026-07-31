@@ -1,19 +1,9 @@
 import Grid3Images from '@/components/Grid/Grid3Images';
-
-async function fetchProjects() {
-  const res = await fetch(process.env.NEXT_PUBLIC_SITE_URL + `/api/Projects`, {
-    cache: 'no-store' // SSR için cache'i kapatıyoruz
-  });
-
-  if (!res.ok) {
-    throw new Error('Veri çekme işlemi başarısız oldu');
-  }
-
-  return res.json();
-}
+import { fetchApi } from '@/lib/fetch-api';
+import type { Project } from '@/types/gallery';
 
 export default async function gallery() {
-  const projects = await fetchProjects();
+  const projects = await fetchApi<Project[]>('/api/projects', 3600);
   return (
     <div className="flex-grow">
       <Grid3Images projects={projects} />

@@ -1,10 +1,16 @@
 const config = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
-
+  imageUrl: '/api/files/',
   apiEndpoints: {
-    downloadFile: process.env.NEXT_PUBLIC_IMAGE_URL + '/api/MinioFile/download/',
-    imageUrl: process.env.NEXT_PUBLIC_IMAGE_URL + '/api/MinioFile/download/'
+    downloadFile: '/api/files/',
+    imageUrl: '/api/files/'
   }
 };
 
 export default config;
+
+export function getImageUrl(fileKey: string | null | undefined): string {
+  if (!fileKey) {
+    return '/screenshot.png';
+  }
+  return `${config.imageUrl}${fileKey}`;
+}

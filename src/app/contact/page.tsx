@@ -21,7 +21,7 @@ export default function Home() {
     e.preventDefault();
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/ContantMe', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
