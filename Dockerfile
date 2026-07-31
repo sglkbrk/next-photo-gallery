@@ -6,6 +6,8 @@ RUN apk add --no-cache openssl
 
 COPY package*.json ./
 COPY prisma ./prisma/
+COPY prisma.config.ts ./
+ENV DATABASE_URL="mysql://build:build@localhost:3306/build"
 RUN npm install --production=false
 
 COPY . .
