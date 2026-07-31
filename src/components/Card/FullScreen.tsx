@@ -4,22 +4,10 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import config from '@/config/config';
 import Image from 'next/image';
+import type { Photo } from '@/types/gallery';
 
 interface FullScreenProps {
-  photo: {
-    title: string;
-    description: string;
-    category: string;
-    photographer: string;
-    camera: string;
-    city: string;
-    client: string;
-    photoUrl: string;
-    lens: string;
-    focalLength: string;
-    width: number;
-    height: number;
-  };
+  photo: Photo;
 }
 export default function FullScreen({ photo }: FullScreenProps) {
   useEffect(() => {
@@ -36,7 +24,7 @@ export default function FullScreen({ photo }: FullScreenProps) {
   return (
     <div id="scroll_id" className="relative w-full  overflow-hidden   max-h-[600px] flex items-end justify-center  mb-8 mt-8 ">
       <a
-        href={config.apiEndpoints.imageUrl + photo.photoUrl}
+        href={config.apiEndpoints.imageUrl + (photo.photoUrl ?? '')}
         data-pswp-width={photo.width}
         data-pswp-height={photo.height}
         className="pswp-gallery__item h-full justify-center items-center"
@@ -46,7 +34,7 @@ export default function FullScreen({ photo }: FullScreenProps) {
             width={photo.width}
             height={photo.height}
             alt={photo.title}
-            src={config.apiEndpoints.downloadFile + photo.photoUrl}
+            src={config.apiEndpoints.downloadFile + (photo.photoUrl ?? '')}
             className="object-cover  object-center"
           />
         </div>

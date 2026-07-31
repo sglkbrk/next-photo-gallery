@@ -30,7 +30,7 @@ export async function POST(request: Request) {
       });
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const { fileName, processedBuffer } = await saveImageFile(buffer, file.name);
+    const { fileName } = await saveImageFile(buffer, file.name);
     const photoUrl = getFileUrl(fileName);
 
     const project = await createProject({

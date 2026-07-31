@@ -4,21 +4,10 @@ import Image from 'next/image';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import config from '@/config/config';
+import type { Photo } from '@/types/gallery';
+
 interface SlideshowProps {
-  photo: {
-    title: string;
-    description: string;
-    category: string;
-    photographer: string;
-    camera: string;
-    city: string;
-    client: string;
-    photoUrl: string;
-    lens: string;
-    focalLength: string;
-    width: number;
-    height: number;
-  };
+  photo: Photo;
 }
 export default function Showdeteil({ photo }: SlideshowProps) {
   useEffect(() => {
@@ -48,15 +37,15 @@ export default function Showdeteil({ photo }: SlideshowProps) {
           </div>
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Camera</p>
-            <h3 className="text-gray-500 text-[14px]">{photo.camera}</h3>
+            <h3 className="text-gray-500 text-[14px]">{photo.camera ?? ''}</h3>
           </div>
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Lens</p>
-            <h3 className="text-gray-500 text-[14px]">{photo.lens}</h3>
+            <h3 className="text-gray-500 text-[14px]">{photo.lens ?? ''}</h3>
           </div>
           <div className="flex flex-col min-w-[100px] space-y-1">
             <p className="text-white text-left text-[15px] font-bold">Focal Length</p>
-            <h3 className="text-gray-500 text-[14px]">{photo.focalLength}</h3>
+            <h3 className="text-gray-500 text-[14px]">{photo.focalLength ?? ''}</h3>
           </div>
         </div>
         <div
@@ -64,7 +53,7 @@ export default function Showdeteil({ photo }: SlideshowProps) {
           className="relative md:col-span-10 w-full  max-h-[500px] flex items-end justify-center md:p-8 mt-8 md:mt-0 "
         >
           <a
-            href={config.apiEndpoints.imageUrl + photo.photoUrl}
+            href={config.apiEndpoints.imageUrl + (photo.photoUrl ?? '')}
             data-pswp-width={photo.width}
             data-pswp-height={photo.height}
             className="pswp-gallery__item justify-center items-center"
@@ -73,7 +62,7 @@ export default function Showdeteil({ photo }: SlideshowProps) {
               width={photo.width}
               height={photo.height}
               alt={photo.title}
-              src={config.apiEndpoints.downloadFile + photo.photoUrl}
+              src={config.apiEndpoints.downloadFile + (photo.photoUrl ?? '')}
               className="object-cover z-0 object-center w-full h-full"
             />
           </a>
