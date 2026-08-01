@@ -1,3 +1,5 @@
+import fs from 'fs/promises';
+import path from 'path';
 import { NextResponse } from 'next/server';
 import { readFile, getContentType } from '@/lib/file-storage';
 
@@ -18,6 +20,16 @@ export async function GET(_request: Request, { params }: { params: Params }) {
       }
     });
   } catch {
-    return NextResponse.json({ error: 'File not found' }, { status: 404 });
+    const fallbackPath = path.join(process.cwd(), 'public', 'screenshot.png');
+    const fallbackBuffer = await fs.readFile(fallbackPath);
+
+    return new NextResponse(fallbackBuffer, {
+      status: 200,
+      headers: {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=2592000',
+        Expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString()
+      }
+    });
   }
 }

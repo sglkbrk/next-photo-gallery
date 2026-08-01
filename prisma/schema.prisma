@@ -56,6 +56,16 @@ model Photo {
   @@map("Photo")
 }
 
+model Type {
+  id        Int      @id @default(autoincrement()) @map("Id")
+  group     String   @map("Group")
+  value     String   @map("Value")
+  createdAt DateTime @default(now()) @map("CreatedAt")
+
+  @@unique([group, value], map: "IX_Type_Group_Value")
+  @@map("Type")
+}
+
 model ContantMe {
   id      Int      @id @default(autoincrement()) @map("Id")
   name    String   @map("Name")

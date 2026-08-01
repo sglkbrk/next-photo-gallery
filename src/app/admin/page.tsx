@@ -5,6 +5,7 @@ import slugify from 'slugify';
 import { CATEGORY_OPTIONS, type ContactMessage, type Project } from '@/types/gallery';
 
 type TabId = 'photo' | 'project' | 'contact' | 'settings';
+type OptionGroup = 'photographer' | 'client' | 'camera' | 'city';
 
 function parseLoginValue(value: string): { username: string; password: string } {
   const trimmed = value.trim();
@@ -51,6 +52,12 @@ export default function AdminPage() {
   const [loginInput, setLoginInput] = useState('');
   const [projects, setProjects] = useState<Project[]>([]);
   const [contacts, setContacts] = useState<ContactMessage[]>([]);
+  const [fieldOptions, setFieldOptions] = useState<Record<OptionGroup, string[]>>({
+    photographer: [],
+    client: [],
+    camera: [],
+    city: []
+  });
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [cacheSlug, setCacheSlug] = useState('');
@@ -60,11 +67,87 @@ export default function AdminPage() {
     setTimeout(() => setStatus(null), 4000);
   };
 
+  const persistLogin = useCallback(() => {
+    const value = loginInput.trim();
+    saveLogin(value);
+    return value;
+  }, [loginInput]);
+
+  const validateRequiredFields = (form: HTMLFormElement, requiredFields: string[]) => {
+    const missing = requiredFields.filter((name) => {
+      const element = form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+      if (!element) return true;
+      if (element instanceof HTMLInputElement && element.type === 'file') {
+        return !element.files || element.files.length === 0;
+      }
+      return !String(element.value ?? '').trim();
+    });
+
+    if (missing.length > 0) {
+      showStatus(`Lütfen zorunlu alanları doldurun: ${missing.join(', ')}`);
+      return false;
+    }
+
+    return true;
+  };
+
   const loadProjects = useCallback(async () => {
     const res = await fetch('/api/projects');
     if (res.ok) {
       setProjects(await res.json());
     }
+  }, []);
+
+  const loadFieldOptions = useCallback(async () => {
+    const groups: OptionGroup[] = ['photographer', 'client', 'camera', 'city'];
+    const results = await Promise.all(
+      groups.map(async (group) => {
+        const res = await fetch(`/api/admin/types?group=${encodeURIComponent(group)}`, {
+          headers: { Authorization: getAuthHeader() }
+        });
+
+        if (!res.ok) {
+          return [group, []] as const;
+        }
+
+        const data = (await res.json()) as { values?: string[] };
+        return [group, data.values ?? []] as const;
+      })
+    );
+
+    const nextOptions = { photographer: [], client: [], camera: [], city: [] } as Record<OptionGroup, string[]>;
+    results.forEach(([group, values]) => {
+      nextOptions[group] = values;
+    });
+
+    setFieldOptions(nextOptions);
+  }, []);
+
+  const addFieldValue = useCallback(async (group: OptionGroup, value: string) => {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      showStatus('Lütfen bir değer girin.');
+      return false;
+    }
+
+    const res = await fetch('/api/admin/types', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: getAuthHeader()
+      },
+      body: JSON.stringify({ group, value: trimmed })
+    });
+
+    if (!res.ok) {
+      showStatus('Değer eklenemedi.');
+      return false;
+    }
+
+    const data = (await res.json()) as { values?: string[] };
+    setFieldOptions((prev) => ({ ...prev, [group]: data.values ?? prev[group] }));
+    showStatus('Değer eklendi.');
+    return true;
   }, []);
 
   const loadContacts = useCallback(async () => {
@@ -82,7 +165,8 @@ export default function AdminPage() {
       setLoginInput(saved);
     }
     loadProjects();
-  }, [loadProjects]);
+    loadFieldOptions();
+  }, [loadProjects, loadFieldOptions]);
 
   useEffect(() => {
     if (activeTab === 'contact') {
@@ -102,6 +186,16 @@ export default function AdminPage() {
 
   const handlePhotoUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const loginValue = persistLogin();
+    if (!loginValue) {
+      showStatus('Lütfen kullanıcı adı ve şifre girin.');
+      return;
+    }
+
+    if (!validateRequiredFields(event.currentTarget, ['file', 'projectsId', 'title', 'category'])) {
+      return;
+    }
+
     setLoading(true);
     const formData = new FormData(event.currentTarget);
 
@@ -127,6 +221,16 @@ export default function AdminPage() {
 
   const handleProjectUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const loginValue = persistLogin();
+    if (!loginValue) {
+      showStatus('Lütfen kullanıcı adı ve şifre girin.');
+      return;
+    }
+
+    if (!validateRequiredFields(event.currentTarget, ['file', 'client', 'camera', 'title', 'category', 'status'])) {
+      return;
+    }
+
     setLoading(true);
     const formData = new FormData(event.currentTarget);
     const title = String(formData.get('title') ?? '');
@@ -175,8 +279,8 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <div className="mx-auto max-w-5xl px-4 py-8">
+    <div className="relative min-h-screen overflow-visible bg-zinc-950 text-zinc-100">
+      <div className="relative z-10 mx-auto max-w-5xl px-4 py-8 pb-32">
         <header className="mb-8 flex flex-col gap-4 border-b border-zinc-800 pb-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-light tracking-wide">BsGallery Admin</h1>
@@ -210,7 +314,7 @@ export default function AdminPage() {
         </div>
 
         {activeTab === 'photo' && (
-          <form onSubmit={handlePhotoUpload} className="grid gap-4 rounded border border-zinc-800 bg-zinc-900/50 p-6">
+          <form noValidate onSubmit={handlePhotoUpload} className="grid gap-4 rounded border border-zinc-800 bg-zinc-900/50 p-6">
             <FormField label="Fotoğraf">
               <input type="file" name="file" required accept="image/*" className="w-full text-sm" />
             </FormField>
@@ -251,9 +355,13 @@ export default function AdminPage() {
                 ))}
               </select>
             </FormField>
-            <FormField label="Fotoğrafçı">
-              <input name="photographer" className="admin-input" />
-            </FormField>
+            <FieldComboInput
+              label="Fotoğrafçı"
+              name="photographer"
+              group="photographer"
+              options={fieldOptions.photographer}
+              onAdd={addFieldValue}
+            />
             <button type="submit" disabled={loading} className="admin-button">
               {loading ? 'Yükleniyor...' : 'Fotoğraf Yükle'}
             </button>
@@ -261,17 +369,13 @@ export default function AdminPage() {
         )}
 
         {activeTab === 'project' && (
-          <form onSubmit={handleProjectUpload} className="grid gap-4 rounded border border-zinc-800 bg-zinc-900/50 p-6">
+          <form noValidate onSubmit={handleProjectUpload} className="grid gap-4 rounded border border-zinc-800 bg-zinc-900/50 p-6">
             <FormField label="Proje Fotoğrafı">
               <input type="file" name="file" required accept="image/*" className="w-full text-sm" />
             </FormField>
             <div className="grid gap-4 sm:grid-cols-2">
-              <FormField label="Müşteri">
-                <input name="client" required className="admin-input" />
-              </FormField>
-              <FormField label="Kamera">
-                <input name="camera" required className="admin-input" />
-              </FormField>
+              <FieldComboInput label="Müşteri" name="client" group="client" options={fieldOptions.client} onAdd={addFieldValue} />
+              <FieldComboInput label="Kamera" name="camera" group="camera" options={fieldOptions.camera} onAdd={addFieldValue} />
             </div>
             <FormField label="Başlık">
               <input name="title" required className="admin-input" />
@@ -280,12 +384,14 @@ export default function AdminPage() {
               <textarea name="description" rows={5} className="admin-input" />
             </FormField>
             <div className="grid gap-4 sm:grid-cols-2">
-              <FormField label="Şehir">
-                <input name="city" className="admin-input" />
-              </FormField>
-              <FormField label="Fotoğrafçı">
-                <input name="photographer" className="admin-input" />
-              </FormField>
+              <FieldComboInput label="Şehir" name="city" group="city" options={fieldOptions.city} onAdd={addFieldValue} />
+              <FieldComboInput
+                label="Fotoğrafçı"
+                name="photographer"
+                group="photographer"
+                options={fieldOptions.photographer}
+                onAdd={addFieldValue}
+              />
             </div>
             <FormField label="Kategori">
               <select name="category" required className="admin-input">
@@ -415,6 +521,53 @@ function FormField({ label, children }: { label: string; children: React.ReactNo
     <label className="grid gap-1 text-sm">
       <span className="text-zinc-400">{label}</span>
       {children}
+    </label>
+  );
+}
+
+function FieldComboInput({
+  label,
+  name,
+  group,
+  options,
+  onAdd
+}: {
+  label: string;
+  name: string;
+  group: OptionGroup;
+  options: string[];
+  onAdd: (group: OptionGroup, value: string) => Promise<boolean>;
+}) {
+  const [value, setValue] = useState('');
+
+  const handleAdd = async () => {
+    const added = await onAdd(group, value);
+    if (added) {
+      setValue('');
+    }
+  };
+
+  return (
+    <label className="grid gap-1 text-sm">
+      <span className="text-zinc-400">{label}</span>
+      <div className="flex flex-col gap-2 sm:flex-row">
+        <input
+          name={name}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          list={`${group}-options`}
+          className="admin-input"
+          placeholder="Var olanı seçin veya yeni değer yazın"
+        />
+        <button type="button" onClick={handleAdd} className="rounded border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-200">
+          Ekle
+        </button>
+      </div>
+      <datalist id={`${group}-options`}>
+        {options.map((option) => (
+          <option key={option} value={option} />
+        ))}
+      </datalist>
     </label>
   );
 }

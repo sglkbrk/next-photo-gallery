@@ -57,27 +57,34 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function ProjectPage(props: { params: Params }) {
   const { slug } = await props.params;
   const data = await fetchApi<Project>(`/api/projects/${slug}`, 86400);
-  const himage = (data.photos ?? []).filter((x: Photo) => x.format === 0);
-  const vimage = (data.photos ?? []).filter((x: Photo) => x.format === 1);
   const recentProject = await fetchApi<Project[]>('/api/projects/recent/4', 3600);
   const slugs = await fetchApi<string[]>('/api/projects/slugs', 3600);
-  const cc = data.description.split('&');
 
-  if (!data || himage.length < 3) {
+  if (!data) {
     notFound();
   }
 
+  const himage = (data.photos ?? []).filter((x: Photo) => x.format === 0);
+  const vimage = (data.photos ?? []).filter((x: Photo) => x.format === 1);
+  const cc = (data.description ?? '')
+    .split('&')
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const heroPhoto = himage[0];
+  const detailPhoto = himage[1];
+  const fullScreenPhoto = himage[2];
+
   return (
     <div>
-      <BannerFullScreen image={getImageUrl(himage[0].photoUrl)} title={data.title} ctiy={data.city} />
+      <BannerFullScreen image={getImageUrl(heroPhoto?.photoUrl ?? data.mainImageUrl)} title={data.title} ctiy={data.city} />
       <div className="ml-4 mr-4 xl:ml-64 xl:mr-64">
-        <p className="text-gray-400 text-[15px] font-effra">{cc[0]}</p>
-        <Showdeteil photo={himage[1]} />
-        <p className="text-gray-400 text-[15px] font-effra">{cc[1]}</p>
-        <FullScreen photo={himage[2]} />
-        <p className="text-gray-400 text-[15px] font-effra">{cc[2]}</p>
-        <GalleryHGrid photos={himage.slice(3, himage.length)} slug={'/photosh/' + slug} />
-        <GalleryGrid photos={vimage} slug={'/photos/' + slug} />
+        {cc[0] ? <p className="text-gray-400 text-[15px] font-effra">{cc[0]}</p> : null}
+        {detailPhoto ? <Showdeteil photo={detailPhoto} /> : null}
+        {cc[1] ? <p className="text-gray-400 text-[15px] font-effra">{cc[1]}</p> : null}
+        {fullScreenPhoto ? <FullScreen photo={fullScreenPhoto} /> : null}
+        {cc[2] ? <p className="text-gray-400 text-[15px] font-effra">{cc[2]}</p> : null}
+        {himage.slice(3).length > 0 ? <GalleryHGrid photos={himage.slice(3)} slug={'/photosh/' + slug} /> : null}
+        {vimage.length > 0 ? <GalleryGrid photos={vimage} slug={'/photos/' + slug} /> : null}
       </div>
       <ProjectsNavigation slugs={slugs} slug={slug} />
       <RecentProjects projects={recentProject} />
