@@ -59,7 +59,7 @@ export default function Home() {
         </div>
         <div>
           <p className="text-white text-[14px] font-extralight tracking-3 w-25">Address</p>
-          <p className="text-white text-[13px] font-extralight w-25">Sivas/Merkez</p>
+          <p className="text-white text-[13px] font-extralight w-25">Ankara/Çankaya</p>
         </div>
         <div>
           <p className="text-white text-[14px] font-extralight tracking-3 w-25">Email</p>
@@ -111,7 +111,7 @@ export default function Home() {
           <iframe
             className="w-full h-full"
             id="gmap_canvas"
-            src="https://maps.google.com/maps?q=Mission%20District%2C%20Sivas%2C%20CA%2C%20Turkey&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=Mission%20District%2C%20Ankara%2C%20CA%2C%20Turkey&t=&z=13&ie=UTF8&iwloc=&output=embed"
             scrolling="no"
           ></iframe>
         </div>

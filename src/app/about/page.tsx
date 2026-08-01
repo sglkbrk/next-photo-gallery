@@ -65,24 +65,19 @@ export default function Aboutme() {
                   <p className="text-white text-[14px] font-bold">Unvan</p>
                   <h2 className="text-gray-400 text-[13px] ">Yazılım Geliştirici & Fotoğrafçı</h2>
                 </div>
-                <div>
-                  <p className="text-white text-[14px] font-bold">Doğum Tarihi</p>
-                  <p className="text-gray-400 text-[13px]">02.05.1996</p>
-                </div>
+
                 <div>
                   <p className="text-white text-[14px] font-bold">Konum</p>
-                  <p className="text-gray-400 text-[13px]">İstanbul</p>
+                  <p className="text-gray-400 text-[13px]">Ankara</p>
                 </div>
               </div>
               <h2 className="text-gray-400 text-[13px]   mt-10 mr-0 sm:mr-8 font-extralight tracking-3">Merhaba, Ben Burak Sağlık</h2>
               <p className="text-gray-400 text-[13px] mt-3 font-extralight mr-0 sm:mr-8 tracking-3">
-                Burak Sağlık olarak, 2018 yılında Sivas Cumhuriyet Üniversitesi Yönetim Bilişim Sistemleri bölümünden birincilikle mezun
-                oldum. Kariyerime 2016 yılında Detaysoft&apos;ta Web ve Mobil Geliştirici olarak başladım. Bu süre zarfında Frontend
-                Developer, Mobile Developer ve SAP Fiori Developer olarak hem web hem de mobil projelerde deneyim kazandım. React.js ve
-                Vue.js gibi modern teknolojiler kullanarak dinamik uygulamalar geliştiriyor, aynı zamanda SAP Fiori ile kurumsal çözümler
-                oluşturuyorum. Profesyonel kariyerime şu anda Innova&apos;da devam ediyorum ve teknolojik gelişmeleri takip ederek
-                projelerime değer katmayı hedefliyorum. Burak Sağlık olarak, yazılım geliştirme ve fotoğrafçılık alanlarında kendimi sürekli
-                geliştiriyorum.
+                Türkiye de yaşayan bir Web Geliştirici ve Fotoğrafçıyım. 2018 yılında Sivas Cumhuriyet Üniversitesi Yönetim Bilişim
+                Sistemleri bölümünden bölüm birincisi olarak mezun oldum 🎓. Kariyerime 2016 yılında Detaysoft ta Frontend, Mobil ve SAP
+                Fiori Geliştirici olarak başladım. Bu süreçte hem kurumsal hem de kullanıcı odaklı projelerde geniş bir deneyim edindim. Şu
+                an Innova da çalışmaktayım. React.js, Next.js ve SAP Fiori ile kurumsal ve kullanıcı odaklı projeler geliştiriyorum.
+                Öğrenmeyi bırakmadığım sürece iyi iş çıkarabileceğime inanıyorum.
               </p>
               <div className="flex flex-row items-center  mt-10 mr-8 justify-between">
                 <a href="mailto:sglk.brk@gmail.com" className="text-white text-[13px] font-extralight tracking-3">
