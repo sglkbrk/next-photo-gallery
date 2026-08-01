@@ -6,8 +6,39 @@ import { CATEGORY_OPTIONS, type ContactMessage, type Project } from '@/types/gal
 
 type TabId = 'photo' | 'project' | 'contact' | 'settings';
 
+function parseLoginValue(value: string): { username: string; password: string } {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return { username: '', password: '' };
+  }
+
+  const colonIndex = trimmed.indexOf(':');
+  if (colonIndex !== -1) {
+    return {
+      username: trimmed.slice(0, colonIndex),
+      password: trimmed.slice(colonIndex + 1)
+    };
+  }
+
+  const commaIndex = trimmed.indexOf(',');
+  if (commaIndex !== -1) {
+    return {
+      username: trimmed.slice(0, commaIndex),
+      password: trimmed.slice(commaIndex + 1)
+    };
+  }
+
+  return { username: trimmed, password: '' };
+}
+
 function getAuthHeader(): string {
   const login = sessionStorage.getItem('adminLogin') ?? '';
+  const { username, password } = parseLoginValue(login);
+
+  if (username && password) {
+    return `Basic ${btoa(`${username}:${password}`)}`;
+  }
+
   return `Basic ${btoa(login)}`;
 }
 
@@ -156,14 +187,12 @@ export default function AdminPage() {
             value={loginInput}
             onChange={(e) => setLoginInput(e.target.value)}
             onKeyDown={handleLoginKeyDown}
-            placeholder="username,password"
+            placeholder="username:password veya username,password"
             className="w-full rounded border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm sm:w-72"
           />
         </header>
 
-        {status && (
-          <div className="mb-4 rounded border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm text-zinc-200">{status}</div>
-        )}
+        {status && <div className="mb-4 rounded border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm text-zinc-200">{status}</div>}
 
         <div className="mb-6 flex flex-wrap gap-2">
           {tabs.map((tab) => (

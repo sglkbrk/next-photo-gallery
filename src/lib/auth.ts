@@ -1,3 +1,28 @@
+function parseCredentials(value: string): { username: string; password: string } | null {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return null;
+  }
+
+  const colonIndex = trimmed.indexOf(':');
+  if (colonIndex !== -1) {
+    return {
+      username: trimmed.slice(0, colonIndex),
+      password: trimmed.slice(colonIndex + 1)
+    };
+  }
+
+  const commaIndex = trimmed.indexOf(',');
+  if (commaIndex !== -1) {
+    return {
+      username: trimmed.slice(0, commaIndex),
+      password: trimmed.slice(commaIndex + 1)
+    };
+  }
+
+  return null;
+}
+
 export function verifyBasicAuth(request: Request): boolean {
   const username = process.env.ADMIN_USERNAME;
   const password = process.env.ADMIN_PASSWORD;
@@ -12,15 +37,12 @@ export function verifyBasicAuth(request: Request): boolean {
   }
 
   const decoded = Buffer.from(authHeader.slice(6), 'base64').toString('utf-8');
-  const separatorIndex = decoded.indexOf(':');
-  if (separatorIndex === -1) {
+  const credentials = parseCredentials(decoded);
+  if (!credentials) {
     return false;
   }
 
-  const providedUsername = decoded.slice(0, separatorIndex);
-  const providedPassword = decoded.slice(separatorIndex + 1);
-
-  return providedUsername === username && providedPassword === password;
+  return credentials.username === username && credentials.password === password;
 }
 
 export function unauthorizedResponse(): Response {

@@ -50,7 +50,7 @@ export default function Aboutme() {
           width={1000}
           height={1000}
           alt="Burak Sağlık - Fotoğrafçı ve Yazılımcı"
-          src="api/files/588fc047-34ca-458c-9f8b-bf8839227162.jpeg"
+          src="/api/files/588fc047-34ca-458c-9f8b-bf8839227162.jpeg"
           className="object-cover  object-center w-full h-full blur-sm"
         />
         <div className="items-center  justify-center absolute z-10 mt-16 sm:mt-0 bg-black  left-2 right-2 md:left-8 md:right-8  space-y-4  ">
