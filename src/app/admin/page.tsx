@@ -101,17 +101,17 @@ export default function AdminPage() {
   const loadFieldOptions = useCallback(async () => {
     const groups: OptionGroup[] = ['photographer', 'client', 'camera', 'city'];
     const results = await Promise.all(
-      groups.map(async (group) => {
+      groups.map(async (group): Promise<[OptionGroup, string[]]> => {
         const res = await fetch(`/api/admin/types?group=${encodeURIComponent(group)}`, {
           headers: { Authorization: getAuthHeader() }
         });
 
         if (!res.ok) {
-          return [group, []] as const;
+          return [group, []];
         }
 
         const data = (await res.json()) as { values?: string[] };
-        return [group, data.values ?? []] as const;
+        return [group, data.values ?? []];
       })
     );
 
@@ -123,32 +123,37 @@ export default function AdminPage() {
     setFieldOptions(nextOptions);
   }, []);
 
-  const addFieldValue = useCallback(async (group: OptionGroup, value: string) => {
-    const trimmed = value.trim();
-    if (!trimmed) {
-      showStatus('Lütfen bir değer girin.');
-      return false;
-    }
+  const addFieldValue = useCallback(
+    async (group: OptionGroup, value: string) => {
+      const trimmed = value.trim();
+      if (!trimmed) {
+        showStatus('Lütfen bir değer girin.');
+        return false;
+      }
 
-    const res = await fetch('/api/admin/types', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: getAuthHeader()
-      },
-      body: JSON.stringify({ group, value: trimmed })
-    });
+      const res = await fetch('/api/admin/types', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: getAuthHeader()
+        },
+        body: JSON.stringify({ group, value: trimmed })
+      });
 
-    if (!res.ok) {
-      showStatus('Değer eklenemedi.');
-      return false;
-    }
+      if (!res.ok) {
+        showStatus('Değer eklenemedi.');
+        return false;
+      }
 
-    const data = (await res.json()) as { values?: string[] };
-    setFieldOptions((prev) => ({ ...prev, [group]: data.values ?? prev[group] }));
-    showStatus('Değer eklendi.');
-    return true;
-  }, []);
+      const data = (await res.json()) as { values?: string[] };
+      const nextValues = data.values ?? [];
+      setFieldOptions((prev) => ({ ...prev, [group]: nextValues }));
+      showStatus('Değer eklendi.');
+      await loadFieldOptions();
+      return true;
+    },
+    [loadFieldOptions]
+  );
 
   const loadContacts = useCallback(async () => {
     const res = await fetch('/api/contact', {
@@ -338,12 +343,8 @@ export default function AdminPage() {
               <textarea name="description" rows={4} className="admin-input" />
             </FormField>
             <div className="grid gap-4 sm:grid-cols-2">
-              <FormField label="Konum">
-                <input name="location" className="admin-input" />
-              </FormField>
-              <FormField label="Şehir">
-                <input name="city" className="admin-input" />
-              </FormField>
+              <FieldComboInput label="Konum" name="location" group="city" options={fieldOptions.city} onAdd={addFieldValue} />
+              <FieldComboInput label="Şehir" name="city" group="city" options={fieldOptions.city} onAdd={addFieldValue} />
             </div>
             <FormField label="Kategori">
               <select name="category" required className="admin-input">

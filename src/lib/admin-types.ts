@@ -2,6 +2,10 @@ import { prisma } from './db';
 
 const allowedGroups = new Set(['photographer', 'client', 'camera', 'city']);
 
+function normalizeGroup(group: string) {
+  return group.trim().toLowerCase();
+}
+
 async function ensureTypeTable() {
   try {
     await prisma.$executeRawUnsafe(`
@@ -24,20 +28,20 @@ export function isAllowedGroup(group: string): boolean {
 }
 
 export async function getTypeValues(group: string) {
-  if (!isAllowedGroup(group)) {
+  const normalizedGroup = normalizeGroup(group);
+  if (!isAllowedGroup(normalizedGroup)) {
     return [];
   }
 
   await ensureTypeTable();
 
   try {
-    const rows = await prisma.type.findMany({
-      where: { group },
-      orderBy: { value: 'asc' },
-      select: { value: true }
-    });
+    const rows = await prisma.$queryRawUnsafe<Array<{ Value: string }>>(
+      `SELECT \`Value\` FROM \`Type\` WHERE \`Group\` = ? ORDER BY \`Value\` ASC`,
+      normalizedGroup
+    );
 
-    return rows.map((row) => row.value);
+    return rows.map((row) => row.Value);
   } catch (error) {
     console.error('getTypeValues failed:', error);
     return [];
@@ -45,7 +49,8 @@ export async function getTypeValues(group: string) {
 }
 
 export async function addTypeValue(group: string, value: string) {
-  if (!isAllowedGroup(group)) {
+  const normalizedGroup = normalizeGroup(group);
+  if (!isAllowedGroup(normalizedGroup)) {
     return [];
   }
 
@@ -57,15 +62,10 @@ export async function addTypeValue(group: string, value: string) {
   }
 
   try {
-    await prisma.type.create({
-      data: {
-        group,
-        value: trimmedValue
-      }
-    });
+    await prisma.$executeRawUnsafe(`INSERT IGNORE INTO \`Type\` (\`Group\`, \`Value\`) VALUES (?, ?)`, normalizedGroup, trimmedValue);
   } catch (error) {
     console.error('addTypeValue failed:', error);
   }
 
-  return getTypeValues(group);
+  return getTypeValues(normalizedGroup);
 }

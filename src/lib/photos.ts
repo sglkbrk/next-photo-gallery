@@ -40,7 +40,8 @@ function mapProjectToPhoto(project: {
 export async function getAllPhotos() {
   try {
     const photos = await prisma.photo.findMany({
-      orderBy: { id: 'desc' }
+      orderBy: { id: 'desc' },
+      take: 50
     });
 
     if (photos.length > 0) {
@@ -49,6 +50,7 @@ export async function getAllPhotos() {
 
     const projects = await prisma.projects.findMany({
       orderBy: { createdAt: 'desc' },
+      take: 20,
       select: {
         id: true,
         title: true,
