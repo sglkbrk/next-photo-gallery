@@ -77,6 +77,62 @@ export async function getPhotoById(id: number) {
   });
 }
 
+export async function getPhotosByProjectId(projectsId: number) {
+  return prisma.photo.findMany({
+    where: { projectsId }
+  });
+}
+
+function normalizeExifFields<T extends Record<string, unknown>>(data: T): T {
+  const exifKeys = ['camera', 'lens', 'focalLength', 'aperture', 'iso', 'shutterSpeed', 'date'] as const;
+  const normalized = { ...data };
+
+  for (const key of exifKeys) {
+    if (key in normalized && normalized[key] == null) {
+      (normalized as Record<string, unknown>)[key] = '';
+    }
+  }
+
+  return normalized;
+}
+
+export async function updatePhoto(
+  id: number,
+  data: Partial<{
+    projectsId: number;
+    photoUrl: string;
+    title: string;
+    subtitle: string;
+    description: string;
+    location: string;
+    city: string;
+    photographer: string;
+    category: number;
+    size: number;
+    format: Format;
+    width: number;
+    height: number;
+    camera: string | null;
+    lens: string | null;
+    focalLength: string | null;
+    aperture: string | null;
+    iso: string | null;
+    shutterSpeed: string | null;
+    date: string | null;
+  }>
+) {
+  return prisma.photo.update({
+    where: { id },
+    data: normalizeExifFields(data)
+  });
+}
+
+export async function deletePhoto(id: number) {
+  await prisma.photo.delete({
+    where: { id }
+  });
+}
+
 export async function createPhoto(data: {
   projectsId: number;
   photoUrl: string;
@@ -99,5 +155,5 @@ export async function createPhoto(data: {
   shutterSpeed?: string | null;
   date?: string | null;
 }) {
-  return prisma.photo.create({ data });
+  return prisma.photo.create({ data: normalizeExifFields(data) });
 }

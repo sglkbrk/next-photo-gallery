@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
+// import Header from '@/components/Header/Header';
+// import Footer from '@/components/Footer/Footer';
+import SiteChrome from '@/components/SiteChrome/SiteChrome';
 import Script from 'next/script';
 
 const geistSans = localFont({
@@ -87,9 +88,7 @@ export default function RootLayout({
             gtag('config', 'G-2WLHTQ5L8Z');
           `}
         </Script>
-        <Header />
-        {children}
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </body>
     </html>

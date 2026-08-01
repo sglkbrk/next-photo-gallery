@@ -14,6 +14,12 @@ export async function getAllContactMessages() {
   return messages.map(serializeContact);
 }
 
+export async function deleteContactMessage(id: number) {
+  await prisma.contantMe.delete({
+    where: { id }
+  });
+}
+
 export async function createContactMessage(data: {
   name: string;
   email: string;

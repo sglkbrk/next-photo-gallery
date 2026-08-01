@@ -60,3 +60,25 @@ export function getContentType(fileName: string): string {
 export function getFileUrl(fileName: string): string {
   return fileName;
 }
+
+export async function deleteImageFile(fileName: string | null | undefined): Promise<void> {
+  if (!fileName) {
+    return;
+  }
+
+  const uploadsDir = path.resolve(getUploadsDir());
+  const safeName = path.basename(fileName);
+  const filePath = path.resolve(uploadsDir, safeName);
+
+  if (!filePath.startsWith(uploadsDir)) {
+    throw new Error('Invalid file path');
+  }
+
+  try {
+    await fs.unlink(filePath);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      throw error;
+    }
+  }
+}

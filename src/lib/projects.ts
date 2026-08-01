@@ -89,6 +89,54 @@ export async function getAllSlugs() {
   return projects.map((p: { slug: string }) => p.slug);
 }
 
+export async function getProjectById(id: number) {
+  const project = await prisma.projects.findUnique({
+    where: { id }
+  });
+
+  return project ? serializeProject(project) : null;
+}
+
+async function findProjectRecord(slugOrId: string) {
+  const numericId = parseInt(slugOrId, 10);
+  if (!Number.isNaN(numericId) && String(numericId) === slugOrId) {
+    return prisma.projects.findUnique({ where: { id: numericId } });
+  }
+
+  return prisma.projects.findFirst({ where: { slug: slugOrId } });
+}
+
+export async function updateProject(
+  id: number,
+  data: {
+    title: string;
+    description: string;
+    city: string;
+    client: string;
+    photographer: string;
+    camera: string;
+    category: number;
+    mainImageUrl?: string;
+    slug: string;
+    status: number;
+    homePage: boolean;
+  }
+) {
+  const project = await prisma.projects.update({
+    where: { id },
+    data
+  });
+  return serializeProject(project);
+}
+
+export async function deleteProject(id: number) {
+  await prisma.projects.delete({
+    where: { id }
+  });
+}
+
+export { findProjectRecord };
+
 export async function createProject(data: {
   title: string;
   description: string;
