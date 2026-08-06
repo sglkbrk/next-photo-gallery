@@ -1,5 +1,7 @@
 import { prisma } from './db';
-import { Format } from '@/types/gallery';
+import { Format, Status } from '@/types/gallery';
+
+const ACTIVE_PROJECT_FILTER = { status: Status.Active };
 
 function serializeProject<T extends Record<string, unknown>>(project: T) {
   return {
@@ -15,9 +17,17 @@ export async function getAllProjects() {
   return projects.map(serializeProject);
 }
 
+export async function getActiveProjects() {
+  const projects = await prisma.projects.findMany({
+    where: ACTIVE_PROJECT_FILTER,
+    orderBy: { createdAt: 'desc' }
+  });
+  return projects.map(serializeProject);
+}
+
 export async function getProjectBySlug(slug: string) {
   const project = await prisma.projects.findFirst({
-    where: { slug }
+    where: { slug, ...ACTIVE_PROJECT_FILTER }
   });
 
   if (!project) {
@@ -42,7 +52,7 @@ export async function getProjectBySlug(slug: string) {
 
 export async function getProjectPhotosByFormat(slug: string, format: Format) {
   const project = await prisma.projects.findFirst({
-    where: { slug }
+    where: { slug, ...ACTIVE_PROJECT_FILTER }
   });
 
   if (!project) {
@@ -61,6 +71,7 @@ export async function getProjectPhotosByFormat(slug: string, format: Format) {
 
 export async function getRecentProjects(count: number) {
   const projects = await prisma.projects.findMany({
+    where: ACTIVE_PROJECT_FILTER,
     orderBy: { createdAt: 'desc' },
     take: count
   });
@@ -70,7 +81,7 @@ export async function getRecentProjects(count: number) {
 export async function getHomeProjects(count: number) {
   try {
     const projects = await prisma.projects.findMany({
-      where: { homePage: true },
+      where: { homePage: true, ...ACTIVE_PROJECT_FILTER },
       orderBy: { createdAt: 'desc' },
       take: count
     });
@@ -83,6 +94,7 @@ export async function getHomeProjects(count: number) {
 
 export async function getAllSlugs() {
   const projects = await prisma.projects.findMany({
+    where: ACTIVE_PROJECT_FILTER,
     orderBy: { createdAt: 'desc' },
     select: { slug: true }
   });

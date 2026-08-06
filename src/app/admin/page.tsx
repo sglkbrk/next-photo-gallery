@@ -353,7 +353,7 @@ export default function AdminPage() {
   /* -------------------------- data loading -------------------------- */
 
   const loadProjects = useCallback(async () => {
-    const res = await fetch('/api/projects');
+    const res = await fetch('/api/projects?all=1', { headers: { Authorization: getAuthHeader() } });
     if (res.ok) setProjects(await res.json());
   }, []);
 
