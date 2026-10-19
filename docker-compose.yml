@@ -20,6 +20,7 @@ services:
 
     volumes:
       - ./uploads:/app/uploads
+      - next-cache:/app/.next/cache
 
     networks:
       - app-network
@@ -28,6 +29,9 @@ services:
       - no-new-privileges:true
     cap_drop:
       - ALL
+
+volumes:
+  next-cache:
 
 networks:
   app-network:

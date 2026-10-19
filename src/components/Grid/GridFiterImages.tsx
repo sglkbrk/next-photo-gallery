@@ -52,6 +52,9 @@ export default function GridFiterImages({ projects }: SlideshowProps) {
             >
               <Image
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                priority={index === 0}
+                loading={index === 0 ? undefined : 'lazy'}
                 src={config.apiEndpoints.downloadFile + (image.photoUrl ?? '')}
                 className="object-cover object-center w-full h-full rounded-lg"
                 alt={image.description}

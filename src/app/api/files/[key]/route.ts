@@ -1,22 +1,40 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { NextResponse } from 'next/server';
-import { readFile, getContentType } from '@/lib/file-storage';
+import { readFile, statFile, getContentType } from '@/lib/file-storage';
 
 type Params = Promise<{ key: string }>;
 
-export async function GET(_request: Request, { params }: { params: Params }) {
+const IMMUTABLE_CACHE_CONTROL = 'public, max-age=31536000, immutable';
+
+export async function GET(request: Request, { params }: Params extends Promise<infer T> ? { params: Promise<T> } : never) {
   try {
     const { key } = await params;
+    const { size, mtime, etag } = await statFile(key);
+
+    const ifNoneMatch = request.headers.get('if-none-match');
+    if (ifNoneMatch === etag) {
+      return new NextResponse(null, {
+        status: 304,
+        headers: {
+          ETag: etag,
+          'Cache-Control': IMMUTABLE_CACHE_CONTROL,
+          'Last-Modified': mtime.toUTCString()
+        }
+      });
+    }
+
     const buffer = await readFile(key);
-    const contentType = getContentType(key);
+    const contentType = getContentType(key, buffer);
 
     return new NextResponse(buffer, {
       status: 200,
       headers: {
         'Content-Type': contentType,
-        'Cache-Control': 'public, max-age=2592000',
-        Expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString()
+        'Content-Length': size.toString(),
+        ETag: etag,
+        'Last-Modified': mtime.toUTCString(),
+        'Cache-Control': IMMUTABLE_CACHE_CONTROL
       }
     });
   } catch {
@@ -27,8 +45,7 @@ export async function GET(_request: Request, { params }: { params: Params }) {
       status: 200,
       headers: {
         'Content-Type': 'image/png',
-        'Cache-Control': 'public, max-age=2592000',
-        Expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString()
+        'Cache-Control': 'public, max-age=86400'
       }
     });
   }

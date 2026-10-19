@@ -32,8 +32,10 @@ export default function SlideShowVNav({ photo }: FullScreenProps) {
         </div>
         <a className="h-full w-screen items-center justify-center">
           <Image
-            width={currentPhoto.width}
-            height={currentPhoto.height}
+            width={currentPhoto.width || 1920}
+            height={currentPhoto.height || 1080}
+            priority
+            sizes="100vw"
             alt={currentPhoto.title}
             src={config.apiEndpoints.downloadFile + currentPhoto.photoUrl}
             className="object-cover object-center w-screen md:pr-8 h-screen"
@@ -52,6 +54,9 @@ export default function SlideShowVNav({ photo }: FullScreenProps) {
               <Image
                 width={100}
                 height={100}
+                sizes="128px"
+                fetchPriority="low"
+                loading="lazy"
                 alt={image.title}
                 src={config.apiEndpoints.downloadFile + image.photoUrl}
                 className="flex w-32 h-full object-cover object-center hidden group-hover:flex"

@@ -82,11 +82,13 @@ export default function SlideShowInfo({ photo }: SlideshowProps) {
             >
               <Image
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, (max-width: 1024px) 45vw, (max-width: 1280px) 35vw, 25vw"
+                priority={index === 0}
+                loading={index === 0 ? undefined : 'lazy'}
                 onMouseEnter={() => setIsHovered(index)}
                 onMouseLeave={() => setIsHovered(-1)}
                 src={config.apiEndpoints.downloadFile + image.photoUrl}
                 alt={image.title}
-                objectFit="cover"
                 className="object-cover h-full p-3 sm:p-0"
               />
             </a>

@@ -12,15 +12,21 @@ export async function compressImage(buffer: Buffer): Promise<Buffer> {
       fit: 'inside',
       withoutEnlargement: true
     })
-    .jpeg({ quality: JPEG_QUALITY })
+    .jpeg({ quality: JPEG_QUALITY, mozjpeg: true, progressive: true })
     .toBuffer();
 }
 
 export async function compressAndWatermark(buffer: Buffer): Promise<Buffer> {
-  const compressed = await compressImage(buffer);
-  const metadata = await sharp(compressed).metadata();
-  const width = metadata.width ?? TARGET_WIDTH;
-  const height = metadata.height ?? 1080;
+  const resized = sharp(buffer).rotate().resize({
+    width: TARGET_WIDTH,
+    height: undefined,
+    fit: 'inside',
+    withoutEnlargement: true
+  });
+
+  const { data, info } = await resized.png().toBuffer({ resolveWithObject: true });
+  const width = info.width || TARGET_WIDTH;
+  const height = info.height || 1080;
 
   const textElements = Array.from({ length: 9 }, () => {
     const x = Math.floor(Math.random() * Math.max(1, width - 100));
@@ -30,9 +36,9 @@ export async function compressAndWatermark(buffer: Buffer): Promise<Buffer> {
 
   const svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">${textElements}</svg>`;
 
-  return sharp(compressed)
+  return sharp(data)
     .composite([{ input: Buffer.from(svg), top: 0, left: 0 }])
-    .jpeg({ quality: JPEG_QUALITY })
+    .jpeg({ quality: JPEG_QUALITY, mozjpeg: true, progressive: true })
     .toBuffer();
 }
 

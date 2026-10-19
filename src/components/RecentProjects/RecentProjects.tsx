@@ -25,6 +25,8 @@ export default function RecentProjects({ projects }: SlideshowProps) {
           >
             <Image
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              loading="lazy"
               alt={project.title}
               src={config.apiEndpoints.downloadFile + project.mainImageUrl}
               className={`object-cover z-0 object-center w-full h-full ${index !== isHovered && isHovered != -1 ? 'opacity-30' : ''}`}

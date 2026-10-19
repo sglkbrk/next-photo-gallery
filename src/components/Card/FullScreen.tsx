@@ -33,6 +33,8 @@ export default function FullScreen({ photo }: FullScreenProps) {
           <Image
             width={photo.width}
             height={photo.height}
+            sizes="(max-width: 1280px) 100vw, 75vw"
+            loading="lazy"
             alt={photo.title}
             src={config.apiEndpoints.downloadFile + (photo.photoUrl ?? '')}
             className="object-cover  object-center"

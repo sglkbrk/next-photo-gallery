@@ -44,6 +44,8 @@ export default function GalleryGrid({ photos, slug }: GalleryGridProps) {
             >
               <Image
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
                 alt={image.title}
                 src={config.apiEndpoints.downloadFile + image.photoUrl}
                 className={`object-cover object-center w-full h-full ${index !== isHovered && isHovered != -1 ? 'opacity-70' : ''}`}

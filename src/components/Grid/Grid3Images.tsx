@@ -23,6 +23,9 @@ export default function GridImages({ projects }: SlideshowProps) {
             <div className="relative flex flex-col items-center justify-center h-[351px]">
               <Image
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                priority={index === 0}
+                loading={index === 0 ? undefined : 'lazy'}
                 src={config.apiEndpoints.downloadFile + (image.mainImageUrl ?? '')}
                 className="object-cover object-center w-full h-full rounded-lg"
                 alt={image.title}

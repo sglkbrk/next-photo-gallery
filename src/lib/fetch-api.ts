@@ -1,6 +1,15 @@
 import { headers } from 'next/headers';
 
 export async function getBaseUrl(): Promise<string> {
+  if (process.env.INTERNAL_API_URL) {
+    return process.env.INTERNAL_API_URL;
+  }
+
+  if (process.env.NODE_ENV === 'production' && process.env.PORT) {
+    const host = process.env.HOST || '127.0.0.1';
+    return `http://${host}:${process.env.PORT}`;
+  }
+
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL;
   }

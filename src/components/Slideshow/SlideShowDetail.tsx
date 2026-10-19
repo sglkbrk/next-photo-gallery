@@ -53,6 +53,9 @@ export default function SlideShowDetail({ images }: { images: images }) {
         {images.photos.map((image, index) => (
           <div key={index} className="relative  w-screen sm:w-auto  sm:min-w-max h-full flex items-center justify-center">
             <img
+              fetchPriority={index === 0 ? 'high' : undefined}
+              loading={index === 0 ? undefined : 'lazy'}
+              decoding="async"
               onMouseEnter={() => setIsHovered(index)}
               onMouseLeave={() => setIsHovered(-1)}
               src={config.apiEndpoints.downloadFile + image.photoUrl}

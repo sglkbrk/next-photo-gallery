@@ -27,7 +27,7 @@ ENV UPLOADS_DIR=/app/uploads
 
 COPY --from=builder /app ./
 
-RUN mkdir -p /app/uploads
+RUN mkdir -p /app/uploads /app/.next/cache/images
 
 EXPOSE 3001
 
